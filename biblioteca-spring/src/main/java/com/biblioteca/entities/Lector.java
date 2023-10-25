@@ -2,11 +2,14 @@ package com.biblioteca.entities;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Lector {
@@ -32,6 +35,9 @@ public class Lector {
 //	private List<Copia> copias;
 
 	// relacion con multa
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lector_id", referencedColumnName = "nSocio")
+	private Multa multa;
 
 	public void devolver(long id, LocalDate date) {
 		// precondicion -- prestamos.notEmpty()
