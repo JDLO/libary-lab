@@ -25,6 +25,11 @@ public class Lector {
 	private String direccion;
 
 	// relacion con prestamo--copia
+	
+	// Lo siguiente puede ser util para establecer un maximo de copias (3)
+//	@OneToMany(mappedBy = "lector", cascade=CascadeType.PERSIST)
+//	@Size(min=1, max=3)
+//	private List<Copia> copias;
 
 	// relacion con multa
 
