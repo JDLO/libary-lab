@@ -3,10 +3,12 @@ package com.biblioteca.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.biblioteca.entities.Multa;
 import com.biblioteca.repositories.MultaRepository;
 
+@Service
 public class MultaServiceImpl implements MultaService {
 
 	@Autowired

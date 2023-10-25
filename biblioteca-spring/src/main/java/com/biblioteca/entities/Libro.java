@@ -27,6 +27,9 @@ public class Libro {
 	private TipoLibro tipoLibro;
 
 	@Column
+	private String editorial;
+
+	@Column
 	private int anyo;
 
 	// relacion con copia
@@ -37,15 +40,16 @@ public class Libro {
 	@ManyToOne(fetch = FetchType.LAZY) // lazy es carga demorada, Eager es carga temprana
 	@JoinColumn(name = "fk_autor")
 	private Autor autor;
-	
+
 	public Libro() {
-		
+
 	}
 
-	public Libro(String titulo, TipoLibro tipoLibro, int anyo) {
+	public Libro(String titulo, TipoLibro tipoLibro, String editorial, int anyo) {
 		super();
 		this.titulo = titulo;
 		this.tipoLibro = tipoLibro;
+		this.editorial = editorial;
 		this.anyo = anyo;
 	}
 
@@ -73,6 +77,14 @@ public class Libro {
 		this.tipoLibro = tipoLibro;
 	}
 
+	public String getEditorial() {
+		return editorial;
+	}
+
+	public void setEditorial(String editorial) {
+		this.editorial = editorial;
+	}
+
 	public int getAnyo() {
 		return anyo;
 	}
@@ -96,6 +108,5 @@ public class Libro {
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
-	
-	
+
 }

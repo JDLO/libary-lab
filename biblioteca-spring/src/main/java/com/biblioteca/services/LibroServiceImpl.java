@@ -3,10 +3,12 @@ package com.biblioteca.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.biblioteca.entities.Libro;
 import com.biblioteca.repositories.LibroRepository;
 
+@Service
 public class LibroServiceImpl implements LibroService {
 
 	@Autowired

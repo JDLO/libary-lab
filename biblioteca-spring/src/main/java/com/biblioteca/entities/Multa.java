@@ -23,7 +23,7 @@ public class Multa {
 	private LocalDate fFin;
 
 	// relacion con lector
-	@OneToOne(mappedBy = "lector")
+	@OneToOne(mappedBy = "multa")
 	private Lector lector;
 	
 	public Multa() {

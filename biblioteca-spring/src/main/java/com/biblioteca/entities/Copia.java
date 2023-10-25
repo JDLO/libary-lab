@@ -1,5 +1,8 @@
 package com.biblioteca.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Copia {
@@ -23,7 +27,58 @@ public class Copia {
 	@ManyToOne(fetch = FetchType.LAZY) // lazy es carga demorada, Eager es carga temprana
 	@JoinColumn(name = "fk_libro")
 	private Libro libro;
-	
-	// relacion con prestamos--lector
-	
+
+	// relacion con prestamo
+	@OneToMany(mappedBy = "copia", cascade = CascadeType.ALL)
+	private List<Prestamo> prestamos;
+
+	public Copia() {
+
+	}
+
+	public Copia(EstadoCopia estado) {
+		super();
+		this.estado = estado;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public EstadoCopia getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoCopia estado) {
+		this.estado = estado;
+	}
+
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
+	}
+
+	public List<Prestamo> getPrestamos() {
+		return prestamos;
+	}
+
+	public void setPrestamos(List<Prestamo> prestamos) {
+		this.prestamos = prestamos;
+	}
+
+	public void addPrestamo(Prestamo prestamo) {
+		this.prestamos.add(prestamo);
+	}
+
+	public void deletePrestamo(Prestamo prestamo) {
+		this.prestamos.remove(prestamo);
+	}
+
 }
