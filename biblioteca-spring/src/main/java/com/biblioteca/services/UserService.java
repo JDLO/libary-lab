@@ -11,5 +11,6 @@ public interface UserService {
 	User agregar(User u); // save del repo
 	User modificar(User u); // save del repo
 	void delete(long id); // delete(User); del repo
+	User getUserByEmail(String email);
 	
 }

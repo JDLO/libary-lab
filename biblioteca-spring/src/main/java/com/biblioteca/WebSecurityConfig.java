@@ -50,11 +50,11 @@ public class WebSecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(auth -> auth
                 .requestMatchers("/css/**", "/img/**", "/script/**", "/login/**", "/failure-login/**")
-                .permitAll()
+                .permitAll());
 
-                .requestMatchers("/user/list").hasAuthority("ADMIN")
-                .requestMatchers("/autor/**").hasAuthority("ADMIN")
-                .requestMatchers("/libro/add/*").hasAuthority("ADMIN")
+//                .requestMatchers("/user/list").hasAuthority("ADMIN")
+//                .requestMatchers("/autor/**").hasAuthority("ADMIN")
+//                .requestMatchers("/libro/add/*").hasAuthority("ADMIN")
                 
 //                .requestMatchers("/report/download/*").hasAuthority("ADMIN").requestMatchers("/report/downloadBetweenDates")
 //                .hasAuthority("ADMIN").requestMatchers("/tutor/downloadActiveTutors").hasAuthority("ADMIN")
@@ -72,9 +72,9 @@ public class WebSecurityConfig {
 //
 //                .requestMatchers("/changePasswordUserInSession").authenticated()
 
-                .anyRequest().authenticated()).formLogin(login -> login.loginPage("/login").permitAll()
-                .defaultSuccessUrl("/home").failureUrl("/failure-login")).logout(logout -> logout.logoutSuccessUrl("/login")
-                .permitAll());
+//                .anyRequest().authenticated()).formLogin(login -> login.loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/home").failureUrl("/failure-login")).logout(logout -> logout.logoutSuccessUrl("/login")
+//                .permitAll());
 
 		return http.build();
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.biblioteca.entities.User;
 import com.biblioteca.repositories.UserRepository;
@@ -13,6 +14,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository repositorio;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	public User listarId(long id) {
@@ -25,8 +29,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User agregar(User u) {
-		return repositorio.save(u);
+	public User agregar(User user) {
+		if (user == null) {
+			throw new IllegalArgumentException("El usuario no puede ser null");
+		}
+		// Pasamos el correo electrónico a minúsculas
+		user.setEmail(user.getEmail().toLowerCase());
+
+		// Se encripta la contraseña y se guarda en el objeto user
+		user.setPassword(encoder.encode(user.getPassword()));
+		return repositorio.save(user);
 	}
 
 	@Override
@@ -44,6 +56,10 @@ public class UserServiceImpl implements UserService {
 		if (u != null) {
 			repositorio.delete(u);
 		}
+	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		return repositorio.findByEmail(email);
 	}
 }
