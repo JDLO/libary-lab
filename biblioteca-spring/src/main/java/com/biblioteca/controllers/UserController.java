@@ -18,26 +18,26 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AddAdminFormValidator addAdminFormValidator;
-	
+
 	@GetMapping("/home")
 	public String getHome() {
 		return "user/home";
 	}
-	
+
 	@GetMapping("/login")
 	public String getLogin() {
 		return "user/login";
 	}
-	
+
 	@GetMapping("/admin/add")
 	public String getAddAdmin(Model model) {
 		model.addAttribute("user", new User());
 		return "admin/add";
 	}
-	
+
 	@PostMapping("/admin/add")
 	public String setAddAdmin(@Validated User userValidated, BindingResult result, Model model,
 			RedirectAttributes redirAttrs) {
@@ -48,5 +48,4 @@ public class UserController {
 		userService.agregar(userValidated);
 		return "redirect:/home";
 	}
-	
 }
