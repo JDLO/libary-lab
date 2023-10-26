@@ -51,7 +51,7 @@ public class AutorController {
 	public String showNewCrusoForm(Model model) {
 		Autor autor = new Autor();
 		model.addAttribute("author", autor);
-		return "create_autor";
+		return "autor/create_autor";
 	}
 	
 	@GetMapping("/autor/page/{pageNo}")
@@ -70,10 +70,10 @@ public class AutorController {
 		model.addAttribute("currentPage", pageNro);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("listauthors", listAutors);
+		model.addAttribute("listAuthors", listAutors);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
 		
-		return "autor";
+		return "autor/autor_home";
 	}
 
 }
