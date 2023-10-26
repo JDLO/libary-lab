@@ -18,7 +18,10 @@
 					<input type="password" class="form-control" id="password" name="password" maxlength="70" required/>
 				</div>
 			</div>
-			<div class="alert alert-danger" role="alert" th:if="${loginFailure}">Ha habido un error</div>
+			
+			<!-- CREO QUE ESTO NO HACE NADA -->
+			<div class="alert alert-danger" role="alert" th:if="${loginFailure}">El email o la password son incorrectos</div>
+			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-primary">Acceder</button>
