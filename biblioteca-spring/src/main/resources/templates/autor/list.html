@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head th:replace="fragments/head" />
+	<body>
+		<div class="container">
+			<h1>Autores</h1>
+			<a th:href="@{autor/add}" class="btn btn-primary btn-sm mb-3">Agregar autor</a>
+			<table id="tableAuthors" class="table table-striped table-responsive-md">
+				<thead>
+					<tr>
+						<th><a>Nombre</a></th>
+						<th><a>Nacionalidad</a></th>
+						<th><a>Fecha nacimiento</a></th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="author: ${listAuthors}">
+						<td th:text="${author.nombre}"></td>
+						<td th:text="${author.nacionalidad}"></td>
+						<td th:text="${author.fechaNacimiento}"></td>
+						<td>
+							<a th:href="@{autor/update/{id}(id=${author.id})}" class="btn btn-primary">Actualizar</a>
+							<a th:href="@{autor/delete/{id}(id=${author.id})}" class="btn btn-danger">Eliminar</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<script>
+			    $('#tableAuthors').DataTable({
+					"columns": [
+			            null, // Columna Nombre
+			            null, // Columna Nacionalidad 
+			            null, // Columna Fecha Nacimiento
+			            { "orderable": false, "searchable": false}, // Acciones
+			        ],
+				});
+			</script>
+			</div><!-- Cierra la el if -->
+		</div>
+	</body>
+</html>

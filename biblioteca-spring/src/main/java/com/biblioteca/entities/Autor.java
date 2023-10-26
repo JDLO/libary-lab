@@ -3,6 +3,8 @@ package com.biblioteca.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,8 +25,9 @@ public class Autor {
 
 	@Column
 	private String nacionalidad;
-
+	
 	@Column
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate fechaNacimiento;
 
 	@OneToMany(mappedBy = "autor", targetEntity = Libro.class, cascade = CascadeType.ALL)

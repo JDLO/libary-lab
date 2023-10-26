@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="fragments/head" />
+<body>
+    <div class="container">
+        <h1>Crear Libro</h1>
+		
+        <form action="#" th:action="@{/autor/save}" th:object="${book}" method="post">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo:</label>
+                <input th:field="*{titulo}" type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="nacionalidad" class="form-label">Tipo:</label>
+                <!--<input th:field="*{tipoLibro}" type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>-->
+            </div>
+
+            <div class="mb-3">
+                <label for="editorial" class="form-label">Editorial:</label>
+                <input th:field="*{editorial}" type="date" class="form-control" id="editorial" name="editorial" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="year" class="form-label">Año:</label>
+                <input th:field="*{anyo}" type="date" class="form-control" id="year" name="year" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Autor</button>
+        </form>
+        <hr>
+        <a class="btn btn-outline-secondary">Volver</a>
+    </div>
+</body>
+</html>

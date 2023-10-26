@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="fragments/head" />
+<body>
+    <div class="container">
+        <h1>Actualizar Autor</h1>
+		
+        <form action="#" th:action="@{/autor/save}" th:object="${author}" method="post">
+			<input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="nacionalidad" class="form-label">Nacionalidad:</label>
+                <input th:field="*{nacionalidad}" type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha-nacimiento" class="form-label">Fecha de Nacimiento:</label>
+                <input th:field="*{fechaNacimiento}" type="date" class="form-control" id="fecha-nacimiento" name="fecha-nacimiento" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar Autor</button>
+        </form>
+        <hr>
+        <a class="btn btn-outline-secondary">Volver</a>
+    </div>
+</body>
+</html>

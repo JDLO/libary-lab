@@ -11,5 +11,4 @@ public interface AutorService {
 	Autor agregar(Autor u); // save del repo
 	Autor modificar(Autor u); // save del repo
 	void delete(long id); // delete(Autor); del repo
-	
 }
