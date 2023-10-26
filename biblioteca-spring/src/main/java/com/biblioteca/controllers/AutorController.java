@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.biblioteca.entities.Autor;
 import com.biblioteca.services.AutorService;
+import com.biblioteca.util.DateFormmatter;
 
 @Controller
 public class AutorController {
-	
-	private String path = "/autor";
-	
+		
 	@Autowired
 	private AutorService autorService;
 	
@@ -43,8 +42,11 @@ public class AutorController {
 	@GetMapping("/autor/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Autor autor=this.autorService.listarId(id);
+		model.addAttribute("authorBirthDate", DateFormmatter.formatDate(
+				autor.getFechaNacimiento()
+				));
 		model.addAttribute("author", autor);
-		return "actualizar_autor";
+		return "autor/update_autor";
 	}
 	
 	@GetMapping("/autor/add")
@@ -73,7 +75,7 @@ public class AutorController {
 		model.addAttribute("listAuthors", listAutors);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
 		
-		return "autor/autor_home";
+		return "autor/home_autor";
 	}
 
 }
