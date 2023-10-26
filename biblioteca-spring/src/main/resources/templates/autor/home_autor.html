@@ -5,7 +5,7 @@
 		<div class="container">
 			<h1>Autores</h1>
 			<a th:href="@{autor/add}" class="btn btn-primary btn-sm mb-3">Agregar autor</a>
-			<table class="table table-striped table-responsive-md">
+			<table id="tableAuthors" class="table table-striped table-responsive-md">
 				<thead>
 					<tr>
 						<th><a>Nombre</a></th>
@@ -26,32 +26,16 @@
 					</tr>
 				</tbody>
 			</table>
-			<!-- BOTONOS PARA LA PAGINACION -->
-			<div th:if="${totalPages > 1}">
-				<div class="row col-sm-10">
-					<div class="col-sm-5">Total de filas: [[${totalItems}]]</div>
-					<div class="col-sm-3">
-						<span th:each="i: ${#numbers.sequence(1,totalPages)}">
-							<a th:if="${currentPage != 1}"
-							th:href="@{'autor/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
-								[[${i}]]
-							</a>
-						</spann>
-						<span th:unless="${currentPage != 1}">[[${i}]]</span>
-					</div>
-					<div class="col-sm-1">
-						<a th:if="${currentPage < totalPages}"
-						th:href="@{'autor/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
-							Proxima
-						</a>						
-					</div>
-					<div class="col-sm-1">
-						<a th:if="${currentPage < totalPages}"
-						th:href="@{'autor/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
-							Ultima
-						</a>						
-					</div>
-				</div>
+			<script>
+			    $('#tableAuthors').DataTable({
+					"columns": [
+			            null, // Columna Nombre
+			            null, // Columna Nacionalidad 
+			            null, // Columna Fecha Nacimiento
+			            { "orderable": false, "searchable": false}, // Acciones
+			        ],
+				});
+			</script>
 			</div><!-- Cierra la el if -->
 		</div>
 	</body>
