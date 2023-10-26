@@ -105,7 +105,7 @@ public class Lector {
 		// precondicion -- multa==0
 	}
 
-	private void multar(int dias) {
+	public void multar(int dias) {
 
 	}
 }
