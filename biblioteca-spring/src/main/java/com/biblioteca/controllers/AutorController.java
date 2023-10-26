@@ -24,7 +24,9 @@ public class AutorController {
 	
 	@GetMapping("/autor")
 	public String viewHomePageAutor(Model model) {
-		return findPaginated(1, "nombre", "asc", model);
+		List<Autor> listAutors = autorService.listar();
+		model.addAttribute("listAuthors", listAutors);
+		return "autor/list";
 	}
 	
 	@PostMapping("/autor/save")
@@ -42,40 +44,15 @@ public class AutorController {
 	@GetMapping("/autor/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Autor autor=this.autorService.listarId(id);
-		model.addAttribute("authorBirthDate", DateFormmatter.formatDate(
-				autor.getFechaNacimiento()
-				));
 		model.addAttribute("author", autor);
-		return "autor/update_autor";
+		return "autor/update";
 	}
 	
 	@GetMapping("/autor/add")
 	public String showNewCrusoForm(Model model) {
 		Autor autor = new Autor();
 		model.addAttribute("author", autor);
-		return "autor/create_autor";
-	}
-	
-	@GetMapping("/autor/page/{pageNo}")
-	public String findPaginated(
-			@PathVariable(value="pageNo")int pageNro,
-			@RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDir,
-			Model model
-			) {
-		
-		int pageSize = 4;
-		Page<Autor> page = autorService.findPaginated(pageNro, pageSize, sortField, sortDir);
-		List<Autor> listAutors = page.getContent();
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("sortField", sortField);
-		model.addAttribute("currentPage", pageNro);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("listAuthors", listAutors);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
-		
-		return "autor/home_autor";
-	}
+		return "autor/add";
+	}	
 
 }
