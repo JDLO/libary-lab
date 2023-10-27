@@ -3,7 +3,7 @@
 <head th:replace="fragments/head" />
 <body>
     <div class="container">
-        <h1>Actualizar Autor</h1>
+        <h1>Actualizar Libro</h1>
 		
         <form action="#" th:action="@{/autor/save}" th:object="${book}" method="post">
 			<input type="hidden" th:field="*{id}">
@@ -19,12 +19,12 @@
 
             <div class="mb-3">
                 <label for="editorial" class="form-label">Editorial:</label>
-                <input th:field="*{editorial}" type="date" class="form-control" id="editorial" name="editorial" required>
+                <input th:field="*{editorial}" type="text" class="form-control" id="editorial" name="editorial" required>
             </div>
             
             <div class="mb-3">
                 <label for="year" class="form-label">Año:</label>
-                <input th:field="*{anyo}" type="date" class="form-control" id="year" name="year" required>
+                <input th:field="*{anyo}" type="number" class="form-control" id="year" name="year" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar Autor</button>
@@ -32,5 +32,6 @@
         <hr>
         <a class="btn btn-outline-secondary">Volver</a>
     </div>
+    <footer th:replace="fragments/footer" />
 </body>
 </html>
