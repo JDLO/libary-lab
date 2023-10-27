@@ -63,7 +63,7 @@ public class SystemIntegrationTests {
 	@Test
 	public void testEdgeDriver() {
 		// Comprobamos que entramos en la página de bienvenida
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'PAGINA HOME')]"));
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Acceder')]"));
 		Assert.assertTrue("Text not found!", list.size() > 0);
 	}
 }
