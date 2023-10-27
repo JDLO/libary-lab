@@ -48,6 +48,14 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!--
+		https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+
+
 		<!-- Para la ordenación por columnas de las tablas -->
 		<!-- https://mvnrepository.com/artifact/org.webjars/datatables -->
 		<dependency>

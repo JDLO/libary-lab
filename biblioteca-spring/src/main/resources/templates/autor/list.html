@@ -2,6 +2,7 @@
 <html lang="es">
 	<head th:replace="fragments/head" />
 	<body>
+		<nav th:replace="fragments/nav" />
 		<div class="container">
 			<h1>Autores</h1>
 			<a th:href="@{autor/add}" class="btn btn-primary btn-sm mb-3">Agregar autor</a>
@@ -20,8 +21,8 @@
 						<td th:text="${author.nacionalidad}"></td>
 						<td th:text="${author.fechaNacimiento}"></td>
 						<td>
-							<a th:href="@{autor/update/{id}(id=${author.id})}" class="btn btn-primary">Actualizar</a>
-							<a th:href="@{autor/delete/{id}(id=${author.id})}" class="btn btn-danger">Eliminar</a>
+							<a th:href="@{update/{id}(id=${author.id})}" class="btn btn-primary">Actualizar</a>
+							<a th:href="@{delete/{id}(id=${author.id})}" class="btn btn-danger">Eliminar</a>
 						</td>
 					</tr>
 				</tbody>
