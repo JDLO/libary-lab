@@ -85,7 +85,8 @@ public class UserController {
 			return "user/add";
 		}
 		userService.agregar(userValidated);
-		return "redirect:/home";
+		redirAttrs.addFlashAttribute("userAdded", true);
+		return "redirect:/user/list";
 	}
 	
 	@PostMapping("/user/delete/{id}")

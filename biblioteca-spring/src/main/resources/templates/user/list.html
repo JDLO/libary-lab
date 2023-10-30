@@ -8,6 +8,7 @@
 	<div class="container">
 		<h2>Ver usuarios</h2>
 		<div class="alert alert-success" role="alert" th:if="${userDeleted}">Usuario eliminado con éxito</div>
+		<div class="alert alert-success" role="alert" th:if="${userAdded}">Usuario creado con éxito</div>
 		<p>A continuación, se muestran los usuarios del sistema:</p>
 		<div th:if="${users.isEmpty()}" class="alert alert-info" role="alert">No existen usuarios en el sistema
 		</div>
