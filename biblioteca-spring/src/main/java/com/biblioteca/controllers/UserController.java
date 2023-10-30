@@ -23,12 +23,11 @@ public class UserController {
 	@Autowired
 	private AddAdminFormValidator addAdminFormValidator;
 
-	
 	@GetMapping("/")
 	public String getIndex() {
 		return "redirect:/home";
 	}
-	
+
 	@GetMapping("/home")
 	public String getHome() {
 		return "user/home";
@@ -38,7 +37,7 @@ public class UserController {
 	public String getLogin() {
 		return "user/login";
 	}
-	
+
 	/**
 	 * Método que maneja la solicitud GET "/failure-login" para mostrar la página de
 	 * inicio de sesión con un mensaje de error en caso de fallo de inicio de
@@ -59,6 +58,13 @@ public class UserController {
 		return "user/login";
 	}
 
+	@GetMapping("/admin/list")
+	public String getAdmins(Model model) {
+		model.addAttribute("admins", userService.listarAdmins());
+		model.addAttribute("activeUser", getActiveUser());
+		return "admin/list";
+	}
+
 	@GetMapping("/admin/add")
 	public String getAddAdmin(Model model) {
 		model.addAttribute("user", new User());
@@ -75,14 +81,7 @@ public class UserController {
 		userService.agregar(userValidated);
 		return "redirect:/home";
 	}
-	
-	@GetMapping("/admin/list")
-	public String getAdmins(Model model) {
-		model.addAttribute("admins", userService.listarAdmins());
-		model.addAttribute("activeUser", getActiveUser());
-		return "admin/list";
-	}
-	
+
 	/**
 	 * Devuelve el usuario con sesión iniciada en el sistema.
 	 * 
