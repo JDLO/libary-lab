@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h2>Ver administradores</h2>
+		<p>A continuación, se muestran los administradores del sistema:</p>
+		<div th:if="${admins.isEmpty()}" class="alert alert-info" role="alert">No existen administradores en el sistema
+		</div>
+		<div th:unless="${admins.isEmpty()}" class="table-responsive">
+			<table class="table table-hover" id="tableAdmins">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Email</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="admin : ${admins}">
+						<td th:text="${admin.id}"></td>
+						<td th:text="${admin.email}"></td>
+						<td th:unless="${admin.equals(activeUser)}"><a
+								th:href="${'/admin/details/' + admin.id}">Detalles</a></td>
+						<td th:unless="${admin.equals(activeUser)}"><a
+								th:href="${'/admin/update/' + admin.id}">Actualizar</a></td>
+						<td th:unless="${admin.equals(activeUser)}"><a
+								th:href="${'/admin/delete/' + admin.id}">Eliminar</a></td>
+
+						<!-- Para que la tabla DataTables funcione (la tabla tiene que tener siempre las mismas columnas) -->
+						<td th:if="${admin.equals(activeUser)}"></td>
+						<td th:if="${admin.equals(activeUser)}"></td>
+						<td th:if="${admin.equals(activeUser)}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<script>
+				$('#tableAdmins').DataTable({
+					"columns": [
+						null, // Columna ID
+						null, // Columna Email
+						{"orderable": false, "searchable": false}, // Enlace
+						{"orderable": false, "searchable": false}, // Enlace
+						{"orderable": false, "searchable": false}, // Enlace
+					]
+				});
+			</script>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
+</html>

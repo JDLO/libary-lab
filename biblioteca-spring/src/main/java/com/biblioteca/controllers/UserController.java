@@ -76,6 +76,13 @@ public class UserController {
 		return "redirect:/home";
 	}
 	
+	@GetMapping("/admin/list")
+	public String getAdmins(Model model) {
+		model.addAttribute("admins", userService.listarAdmins());
+		model.addAttribute("activeUser", getActiveUser());
+		return "admin/list";
+	}
+	
 	/**
 	 * Devuelve el usuario con sesión iniciada en el sistema.
 	 * 

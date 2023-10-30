@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService {
 	public User getUserByEmail(String email) {
 		return repositorio.findByEmail(email);
 	}
+
+	@Override
+	public List<User> listarAdmins() {
+		return repositorio.findAdmins();
+	}
 }
