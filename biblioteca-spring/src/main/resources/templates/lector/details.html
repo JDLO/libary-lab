@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2>Detalles de lector</h2>
+		<div class="panel panel-default">
+			<div class="panel-heading">Número de socio</div>
+			<div class="panel-body" th:text="${lector.nSocio}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Nombre</div>
+			<div class="panel-body" th:text="${lector.nombre}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Teléfono</div>
+			<div class="panel-body" th:if="${lector.telefono == null}">No consta</div>
+			<div class="panel-body" th:unless="${lector.telefono == null}" th:value="${lector.telefono}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Dirección</div>
+			<div class="panel-body" th:if="${lector.direccion == null}">No consta</div>
+			<div class="panel-body" th:unless="${lector.direccion == null}" th:value="${lector.direccion}"></div>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
+</html>

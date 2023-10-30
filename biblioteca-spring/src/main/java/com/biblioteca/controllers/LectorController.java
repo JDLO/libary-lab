@@ -21,6 +21,12 @@ public class LectorController {
 		return "lector/list";
 	}
 
+	@GetMapping("/lector/details/{id}")
+	public String getUserDetails(@PathVariable Long id, Model model) {
+		model.addAttribute("lector", lectorService.listarId(id));
+		return "lector/details";
+	}
+	
 	@GetMapping("/lector/delete/{id}")
 	public String deleteLector(@PathVariable("id") long id) {
 		// TODO

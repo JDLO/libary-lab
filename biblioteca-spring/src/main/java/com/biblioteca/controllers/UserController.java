@@ -24,7 +24,7 @@ public class UserController {
 
 	@Autowired
 	private AddUserFormValidator addUserFormValidator;
-	
+
 	@Autowired
 	private RolesService rolesService;
 
@@ -40,6 +40,10 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String getLogin() {
+		// Para no entrar en el login si el usuario ya inició sesión
+		if (getActiveUser() != null) {
+			return "redirect:/home";
+		}
 		return "user/login";
 	}
 
@@ -70,6 +74,12 @@ public class UserController {
 		return "user/list";
 	}
 
+	@GetMapping("/user/details/{id}")
+	public String getUserDetails(@PathVariable Long id, Model model) {
+		model.addAttribute("user", userService.listarId(id));
+		return "user/details";
+	}
+
 	@GetMapping("/user/add")
 	public String getAddUser(Model model) {
 		model.addAttribute("user", new User());
@@ -88,18 +98,12 @@ public class UserController {
 		redirAttrs.addFlashAttribute("userAdded", true);
 		return "redirect:/user/list";
 	}
-	
+
 	@PostMapping("/user/delete/{id}")
 	public String setDeleteUser(@PathVariable Long id, RedirectAttributes redAttrs) {
 		userService.delete(id);
 		redAttrs.addFlashAttribute("userDeleted", true);
 		return "redirect:/user/list";
-	}
-	
-	@GetMapping("/user/details/{id}")
-	public String getUserDetails(@PathVariable Long id, Model model) {
-		model.addAttribute("user", userService.listarId(id));
-		return "user/details";
 	}
 
 	/**
