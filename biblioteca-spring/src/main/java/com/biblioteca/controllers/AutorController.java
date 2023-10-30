@@ -15,10 +15,10 @@ import com.biblioteca.services.AutorService;
 
 @Controller
 public class AutorController {
-
+		
 	@Autowired
 	private AutorService autorService;
-
+	
 	@GetMapping("/autor/list")
 	public String viewHomePageAutor(Model model) {
 		List<Autor> listAutors = autorService.listar();
@@ -32,7 +32,7 @@ public class AutorController {
 		return "redirect:/autor/list";
 	}
 
-	@GetMapping("/autor/delete/{id}")
+	@PostMapping("/autor/delete/{id}")
 	public String deleteAutor(@PathVariable("id") long id) {
 		this.autorService.delete(id);
 		return "redirect:/autor/list";
