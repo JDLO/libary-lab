@@ -6,48 +6,51 @@
 <body>
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Ver administradores</h2>
-		<p>A continuación, se muestran los administradores del sistema:</p>
-		<div th:if="${admins.isEmpty()}" class="alert alert-info" role="alert">No existen administradores en el sistema
+		<h2>Ver usuarios</h2>
+		<p>A continuación, se muestran los usuarios del sistema:</p>
+		<div th:if="${users.isEmpty()}" class="alert alert-info" role="alert">No existen usuarios en el sistema
 		</div>
-		<div th:unless="${admins.isEmpty()}" class="table-responsive">
-			<table class="table table-hover" id="tableAdmins">
+		<div th:unless="${users.isEmpty()}" class="table-responsive">
+			<table class="table table-hover" id="tableUsers">
 				<thead>
 					<tr>
 						<th>ID</th>
 						<th>Email</th>
+						<td>Rol</td>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="admin : ${admins}">
-						<td th:text="${admin.id}"></td>
-						<td th:text="${admin.email}"></td>
-						<td th:unless="${admin.equals(activeUser)}"><a
-								th:href="${'/admin/details/' + admin.id}">Detalles</a></td>
-						<td th:unless="${admin.equals(activeUser)}"><a
-								th:href="${'/admin/update/' + admin.id}">Actualizar</a></td>
-						<td th:unless="${admin.equals(activeUser)}">
-							<form th:action="${'/admin/delete/' + admin.id}" method="post">
+					<tr th:each="user : ${users}">
+						<td th:text="${user.id}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.role}"></td>
+						<td th:unless="${user.equals(activeUser)}"><a
+								th:href="${'/admin/details/' + user.id}">Detalles</a></td>
+						<td th:unless="${user.equals(activeUser)}"><a
+								th:href="${'/admin/update/' + user.id}">Actualizar</a></td>
+						<td th:unless="${user.equals(activeUser)}">
+							<form th:action="${'/admin/delete/' + user.id}" method="post">
 								<input type="submit" class="button-danger-action" value="Eliminar"
 									onclick="return confirm('¿Está seguro de que quiere eliminar al admin?')"/>
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							</form>
 						</td>
 						<!-- Para que la tabla DataTables funcione (la tabla tiene que tener siempre las mismas columnas) -->
-						<td th:if="${admin.equals(activeUser)}"></td>
-						<td th:if="${admin.equals(activeUser)}"></td>
-						<td th:if="${admin.equals(activeUser)}"></td>
+						<td th:if="${user.equals(activeUser)}"></td>
+						<td th:if="${user.equals(activeUser)}"></td>
+						<td th:if="${user.equals(activeUser)}"></td>
 					</tr>
 				</tbody>
 			</table>
 			<script>
-				$('#tableAdmins').DataTable({
+				$('#tableUsers').DataTable({
 					"columns": [
 						null, // Columna ID
 						null, // Columna Email
+						null, // Columna Rol
 						{"orderable": false, "searchable": false}, // Enlace
 						{"orderable": false, "searchable": false}, // Enlace
 						{"orderable": false, "searchable": false}, // Enlace

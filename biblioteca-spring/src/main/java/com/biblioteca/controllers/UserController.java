@@ -1,5 +1,7 @@
 package com.biblioteca.controllers;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entities.User;
 import com.biblioteca.services.UserService;
-import com.biblioteca.validators.AddAdminFormValidator;
+import com.biblioteca.validators.AddUserFormValidator;
 
 @Controller
 public class UserController {
@@ -21,7 +23,7 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	private AddAdminFormValidator addAdminFormValidator;
+	private AddUserFormValidator addUserFormValidator;
 
 	@GetMapping("/")
 	public String getIndex() {
@@ -58,25 +60,27 @@ public class UserController {
 		return "user/login";
 	}
 
-	@GetMapping("/admin/list")
-	public String getAdmins(Model model) {
-		model.addAttribute("admins", userService.listarAdmins());
+	@GetMapping("/user/list")
+	public String getUsers(Model model) {
+		model.addAttribute("users", userService.listar());
 		model.addAttribute("activeUser", getActiveUser());
-		return "admin/list";
+		return "user/list";
 	}
 
-	@GetMapping("/admin/add")
-	public String getAddAdmin(Model model) {
+	@GetMapping("/user/add")
+	public String getAddUser(Model model) {
 		model.addAttribute("user", new User());
-		return "admin/add";
+		String roles[] = new String[] { "ADMIN", "LECTOR" };
+		model.addAttribute("rolesList", roles);
+		return "user/add";
 	}
 
-	@PostMapping("/admin/add")
-	public String setAddAdmin(@Validated User userValidated, BindingResult result, Model model,
+	@PostMapping("/user/add")
+	public String setAddUser(@Validated User userValidated, BindingResult result, Model model,
 			RedirectAttributes redirAttrs) {
-		addAdminFormValidator.validate(userValidated, result);
+		addUserFormValidator.validate(userValidated, result);
 		if (result.hasErrors()) {
-			return "admin/add";
+			return "user/add";
 		}
 		userService.agregar(userValidated);
 		return "redirect:/home";

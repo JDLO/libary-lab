@@ -9,7 +9,7 @@ import com.biblioteca.entities.User;
 import com.biblioteca.services.UserService;
 
 @Component
-public class AddAdminFormValidator implements Validator {
+public class AddUserFormValidator implements Validator {
 
 	@Autowired
 	private UserService usersService;
