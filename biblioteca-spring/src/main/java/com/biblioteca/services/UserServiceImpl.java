@@ -15,13 +15,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository repositorio;
-	
+
 	@Autowired
 	private PasswordEncoder encoder;
 
 	@Autowired
 	private LectorService lectorService;
-	
+
 	@Override
 	public User listarId(long id) {
 		return repositorio.findById(id);
@@ -42,14 +42,14 @@ public class UserServiceImpl implements UserService {
 
 		// Se encripta la contraseña y se guarda en el objeto user
 		user.setPassword(encoder.encode(user.getPassword()));
-		
+
 		repositorio.save(user);
-		
-		//Si el usuario tiene rol lector
-		if(user.getRole().equals("LECTOR")) {
+
+		// Si el usuario tiene rol lector
+		if (user.getRole().equals("LECTOR")) {
 			lectorService.agregar(Mapper.userToLector(user));
 		}
-		
+
 		return user;
 	}
 
@@ -66,6 +66,10 @@ public class UserServiceImpl implements UserService {
 	public void delete(long id) {
 		User u = repositorio.findById(id);
 		if (u != null) {
+			// Si el usuario es de tipo lector, se elimina
+			if (u.getRole().equals("LECTOR")) {
+				lectorService.delete(id);
+			}
 			repositorio.delete(u);
 		}
 	}

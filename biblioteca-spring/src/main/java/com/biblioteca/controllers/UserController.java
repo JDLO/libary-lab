@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -85,6 +86,13 @@ public class UserController {
 		}
 		userService.agregar(userValidated);
 		return "redirect:/home";
+	}
+	
+	@PostMapping("/user/delete/{id}")
+	public String setDeleteUser(@PathVariable Long id, RedirectAttributes redAttrs) {
+		userService.delete(id);
+		redAttrs.addFlashAttribute("userDeleted", true);
+		return "redirect:/user/list";
 	}
 
 	/**

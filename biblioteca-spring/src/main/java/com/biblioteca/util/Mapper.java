@@ -12,5 +12,4 @@ public class Mapper {
 		lector.setNombre(nombre);
 		return lector;
 	}
-
 }
