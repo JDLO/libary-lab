@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.biblioteca.entities.User;
 import com.biblioteca.repositories.UserRepository;
+import com.biblioteca.util.Mapper;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PasswordEncoder encoder;
 
+	@Autowired
+	private LectorService lectorService;
+	
 	@Override
 	public User listarId(long id) {
 		return repositorio.findById(id);
@@ -38,7 +42,15 @@ public class UserServiceImpl implements UserService {
 
 		// Se encripta la contraseña y se guarda en el objeto user
 		user.setPassword(encoder.encode(user.getPassword()));
-		return repositorio.save(user);
+		
+		repositorio.save(user);
+		
+		//Si el usuario tiene rol lector
+		if(user.getRole().equals("LECTOR")) {
+			lectorService.agregar(Mapper.userToLector(user));
+		}
+		
+		return user;
 	}
 
 	@Override

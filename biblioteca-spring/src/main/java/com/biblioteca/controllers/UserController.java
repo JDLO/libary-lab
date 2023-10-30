@@ -1,7 +1,5 @@
 package com.biblioteca.controllers;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entities.User;
+import com.biblioteca.services.RolesService;
 import com.biblioteca.services.UserService;
 import com.biblioteca.validators.AddUserFormValidator;
 
@@ -24,6 +23,9 @@ public class UserController {
 
 	@Autowired
 	private AddUserFormValidator addUserFormValidator;
+	
+	@Autowired
+	private RolesService rolesService;
 
 	@GetMapping("/")
 	public String getIndex() {
@@ -70,8 +72,7 @@ public class UserController {
 	@GetMapping("/user/add")
 	public String getAddUser(Model model) {
 		model.addAttribute("user", new User());
-		String roles[] = new String[] { "ADMIN", "LECTOR" };
-		model.addAttribute("rolesList", roles);
+		model.addAttribute("rolesList", rolesService.getRoles());
 		return "user/add";
 	}
 
