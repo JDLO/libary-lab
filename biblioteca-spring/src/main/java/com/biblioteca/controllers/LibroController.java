@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.biblioteca.entities.Libro;
+import com.biblioteca.entities.TipoLibro;
+import com.biblioteca.services.AutorService;
 import com.biblioteca.services.LibroService;
 
 @Controller
@@ -18,6 +20,8 @@ public class LibroController {
 	
 	@Autowired
 	private LibroService libroService;
+	@Autowired
+	private AutorService autorService;
 	
 	@GetMapping("/libro/list")
 	public String viewHomePagelibro(Model model) {
@@ -26,8 +30,9 @@ public class LibroController {
 		return "libro/list";
 	}
 	
-	@PostMapping("/libro/save")
-	public String savelibro(@ModelAttribute("book") Libro libro) {
+	@PostMapping("/libro/save/{id}")
+	public String savelibro(@PathVariable("id") Long idAutor,@ModelAttribute("book") Libro libro) {
+		libro.setAutor(autorService.listarId(idAutor));
 		libroService.agregar(libro);
 		return "redirect:/libro/list";
 	}
@@ -42,13 +47,16 @@ public class LibroController {
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Libro libro=this.libroService.listarId(id);
 		model.addAttribute("book", libro);
+		model.addAttribute("listTiposLibros", TipoLibro.values());
 		return "libro/update";
 	}
 	
-	@GetMapping("/libro/add")
-	public String showNewCrusoForm(Model model) {
+	@GetMapping("/libro/add/{id}")
+	public String showNewCrusoForm(@PathVariable("id")Long idAutor, Model model) {
 		Libro libro = new Libro();
 		model.addAttribute("book", libro);
+		model.addAttribute("idAutor", idAutor);
+		model.addAttribute("listTiposLibros", TipoLibro.values());
 		return "libro/add";
 	}	
 }
