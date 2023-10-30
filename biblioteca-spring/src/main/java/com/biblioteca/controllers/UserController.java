@@ -94,6 +94,12 @@ public class UserController {
 		redAttrs.addFlashAttribute("userDeleted", true);
 		return "redirect:/user/list";
 	}
+	
+	@GetMapping("/user/details/{id}")
+	public String getUserDetails(@PathVariable Long id, Model model) {
+		model.addAttribute("user", userService.listarId(id));
+		return "user/details";
+	}
 
 	/**
 	 * Devuelve el usuario con sesión iniciada en el sistema.

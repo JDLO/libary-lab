@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
 		if (user.getRole().equals("LECTOR")) {
 			lectorService.agregar(Mapper.userToLector(user));
 		}
-
 		return user;
 	}
 
