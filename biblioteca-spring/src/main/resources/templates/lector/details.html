@@ -8,6 +8,7 @@
 
 	<div class="container">
 		<h2>Detalles de lector</h2>
+		<div class="alert alert-success" role="alert" th:if="${lectorUpdated}">Usuario editado con éxito</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">Número de socio</div>
 			<div class="panel-body" th:text="${lector.nSocio}"></div>
@@ -18,13 +19,21 @@
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">Teléfono</div>
-			<div class="panel-body" th:if="${lector.telefono == null}">No consta</div>
-			<div class="panel-body" th:unless="${lector.telefono == null}" th:value="${lector.telefono}"></div>
+			<div class="panel-body"
+				th:if="${lector.telefono == null || lector.telefono.isEmpty() || lector.telefono.isBlank()}">No consta
+			</div>
+			<div class="panel-body"
+				th:unless="${lector.telefono == null || lector.telefono.isEmpty() || lector.telefono.isBlank()}"
+				th:text="${lector.telefono}"></div>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">Dirección</div>
-			<div class="panel-body" th:if="${lector.direccion == null}">No consta</div>
-			<div class="panel-body" th:unless="${lector.direccion == null}" th:value="${lector.direccion}"></div>
+			<div class="panel-body"
+				th:if="${lector.direccion == null || lector.direccion.isEmpty() || lector.direccion.isBlank()}">No
+				consta</div>
+			<div class="panel-body"
+				th:unless="${lector.direccion == null || lector.direccion.isEmpty() || lector.direccion.isBlank()}"
+				th:text="${lector.direccion}"></div>
 		</div>
 	</div>
 	<footer th:replace="fragments/footer" />

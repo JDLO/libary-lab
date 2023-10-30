@@ -28,7 +28,7 @@ public class AddUserFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
 
-		// Comprobar el correo
+		// Comprobar el correo TODO comprobar que no es null
 		if (!user.getEmail().contains("@")) { // Comprobar el dominio
 			errors.rejectValue("email", "Error.user.email.badFormat");
 		} else {

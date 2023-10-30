@@ -3,17 +3,25 @@ package com.biblioteca.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entities.Lector;
 import com.biblioteca.services.LectorService;
+import com.biblioteca.validators.UpdateLectorFormValidator;
 
 @Controller
 public class LectorController {
 
 	@Autowired
 	private LectorService lectorService;
+	
+	@Autowired
+	private UpdateLectorFormValidator updateLectorFormValidator;
 	
 	@GetMapping("/lector/list")
 	public String getLectores(Model model) {
@@ -36,19 +44,23 @@ public class LectorController {
 
 	@GetMapping("/lector/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
-		// TODO
-//		Lector lector = this.lectorService.listarId(id);
-//		model.addAttribute("lector", lector);
+		Lector lector = this.lectorService.listarId(id);
+		model.addAttribute("lectorToBeEdited", lector);
+		model.addAttribute("lector", new Lector());
 		return "lector/update";
 	}
-
-	@GetMapping("/lector/add")
-	public String showNewCrusoForm(Model model) {
-		// TODO ESTO SE TIENE QUE IR, COPIARLO PARA EL EDIT
-		Lector lector = new Lector();
-		model.addAttribute("lector", lector);
-		return "lector/add";
-	}
 	
-
+	@PostMapping("/lector/update")
+	public String setAddUser(@Validated Lector validatedLector, BindingResult result, Model model,
+			RedirectAttributes redirAttrs) {
+		updateLectorFormValidator.validate(validatedLector, result);
+		if (result.hasErrors()) {
+			model.addAttribute("lectorToBeEdited", validatedLector);
+			return "/lector/update";
+		}
+		// Si todo va bien, edutamos al usuario
+		lectorService.agregar(validatedLector);
+		redirAttrs.addFlashAttribute("lectorUpdated", true);
+		return "redirect:/lector/details/" + validatedLector.getnSocio();
+	}
 }
