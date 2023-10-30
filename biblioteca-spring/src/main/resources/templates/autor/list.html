@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head th:replace="fragments/head" />
-	<body>
-		<nav th:replace="fragments/nav" />
-		<div class="container">
-			<h1>Autores</h1>
-			<a th:href="@{autor/add}" class="btn btn-primary btn-sm mb-3">Agregar autor</a>
-			<table id="tableAuthors" class="table table-striped table-responsive-md">
-				<thead>
-					<tr>
-						<th><a>Nombre</a></th>
-						<th><a>Nacionalidad</a></th>
-						<th><a>Fecha nacimiento</a></th>
-						<th>Acciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="author: ${listAuthors}">
-						<td th:text="${author.nombre}"></td>
-						<td th:text="${author.nacionalidad}"></td>
-						<td th:text="${author.fechaNacimiento}"></td>
-						<td>
-							<a th:href="@{update/{id}(id=${author.id})}" class="btn btn-primary">Actualizar</a>
-							<a th:href="@{delete/{id}(id=${author.id})}" class="btn btn-danger">Eliminar</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<script>
-			    $('#tableAuthors').DataTable({
-					"columns": [
-			            null, // Columna Nombre
-			            null, // Columna Nacionalidad 
-			            null, // Columna Fecha Nacimiento
-			            { "orderable": false, "searchable": false}, // Acciones
-			        ],
-				});
-			</script>
-		</div>
-		<footer th:replace="fragments/footer" />
-	</body>
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h1>Autores</h1>
+		<a th:href="@{autor/add}" class="btn btn-primary btn-sm mb-3">Agregar autor</a>
+		<table id="tableAuthors" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Nacionalidad</th>
+					<th>Fecha nacimiento</th>
+					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="author: ${listAuthors}">
+					<td th:text="${author.nombre}"></td>
+					<td th:text="${author.nacionalidad}"></td>
+					<td th:text="${author.fechaNacimiento}"></td>
+					<td>
+						<a th:href="@{update/{id}(id=${author.id})}">Actualizar</a>
+					</td>
+					<td>
+						<a th:href="@{delete/{id}(id=${author.id})}">Eliminar</a>						
+					</td>
+					<td>
+						<a th:href="@{/libro/add/{id}(id=${author.id})}">Agreagar libro</a>						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<script>
+			$('#tableAuthors').DataTable({
+				"columns": [
+					null, // Columna Nombre
+					null, // Columna Nacionalidad 
+					null, // Columna Fecha Nacimiento
+					{"orderable": false, "searchable": false}, // Acciones
+					{"orderable": false, "searchable": false}, // Acciones
+					{"orderable": false, "searchable": false}, // Acciones
+				],
+			});
+		</script>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
 </html>
