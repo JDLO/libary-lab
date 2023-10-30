@@ -1,37 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head th:replace="fragments/head" />
+
 <body>
 	<nav th:replace="fragments/nav" />
-    <div class="container">
-        <h1>Crear Libro</h1>
-		
-        <form action="#" th:action="@{/autor/save}" th:object="${book}" method="post">
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Titulo:</label>
-                <input th:field="*{titulo}" type="text" class="form-control" id="titulo" name="titulo" required>
-            </div>
+	<div class="container">
+		<h1>Actualizar Libro</h1>
 
-            <div class="mb-3">
-                <label for="nacionalidad" class="form-label">Tipo:</label>
-                <!--<input th:field="*{tipoLibro}" type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>-->
-            </div>
+		<form  class="form-horizontal" th:action="${'/libro/save/' + idAutor}" th:object="${book}" method="post">
+			<div class="form-group">
+				<label for="titulo" class="control-label col-sm-2">Título:</label>
+				<div class="col-sm-10">
+					<input th:field="*{titulo}" type="text" class="form-control" id="titulo" name="titulo" required>
+				</div>
+			</div>
 
-            <div class="mb-3">
-                <label for="editorial" class="form-label">Editorial:</label>
-                <input th:field="*{editorial}" type="text" class="form-control" id="editorial" name="editorial" required>
-            </div>
-            
-            <div class="mb-3">
-                <label for="year" class="form-label">Año:</label>
-                <input th:field="*{anyo}" type="number" class="form-control" id="year" name="year" required>
-            </div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="tipoLibro">Tipo:</label>
+				<div class="col-sm-10">
+					<select id="tipoLibro" class="form-control" name="tipoLibro">
+						<option th:each="tipoLibro : ${listTiposLibros}" th:value="${tipoLibro}" th:text="${tipoLibro}"></option>
+					</select>
+				</div>
+			</div>
 
-            <button type="submit" class="btn btn-primary">Guardar Autor</button>
-        </form>
-        <hr>
-        <a class="btn btn-outline-secondary">Volver</a>
-    </div>
-    <footer th:replace="fragments/footer" />
+			<div class="form-group">
+				<label for="editorial" class="control-label col-sm-2">Editorial:</label>
+				<div class="col-sm-10">
+					<input th:field="*{editorial}" type="text" class="form-control" id="editorial" name="editorial"
+						required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="year" class="control-label col-sm-2">Año:</label>
+				<div class="col-sm-10">
+					<input th:field="*{anyo}" type="number" class="form-control" id="year" name="year" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary">Guardar libro</button>
+				</div>
+			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		</form>
+		<hr>
+	</div>
+	<footer th:replace="fragments/footer" />
 </body>
+
 </html>
