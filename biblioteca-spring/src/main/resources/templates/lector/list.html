@@ -10,6 +10,8 @@
 		<p>A continuación, se muestran los lectores del sistema:</p>
 		<div th:if="${lectores.isEmpty()}" class="alert alert-info" role="alert">No existen lectores en el sistema
 		</div>
+		<div class="alert alert-success" role="alert" th:if="${lectorDeleted}">Lector eliminado con éxito
+		</div>
 		<div th:unless="${lectores.isEmpty()}" class="table-responsive">
 			<table class="table table-hover" id="tableLectores">
 				<thead>
@@ -34,7 +36,7 @@
 						<td>
 							<form th:action="${'/lector/delete/' + lector.nSocio}" method="post">
 								<input type="submit" class="button-danger-action" value="Eliminar"
-									onclick="return confirm('¿Está seguro de que quiere eliminar al lector?')"/>
+									onclick="return confirm('¿Está seguro de que quiere eliminar al lector?')" />
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							</form>
 						</td>

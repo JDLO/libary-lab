@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.biblioteca.entities.Lector;
 import com.biblioteca.entities.User;
 import com.biblioteca.services.RolesService;
 import com.biblioteca.services.UserService;
@@ -104,6 +105,13 @@ public class UserController {
 		userService.delete(id);
 		redAttrs.addFlashAttribute("userDeleted", true);
 		return "redirect:/user/list";
+	}
+
+	@PostMapping("/lector/delete/{id}")
+	public String setDeleteLector(@PathVariable Long id, RedirectAttributes redAttrs) {
+		userService.delete(id);
+		redAttrs.addFlashAttribute("lectorDeleted", true);
+		return "redirect:/lector/list";
 	}
 
 	/**
