@@ -35,13 +35,6 @@ public class LectorController {
 		return "lector/details";
 	}
 	
-	@GetMapping("/lector/delete/{id}")
-	public String deleteLector(@PathVariable("id") long id) {
-		// TODO
-//		this.lectorService.delete(id);
-		return "redirect:/lector/list";
-	}
-
 	@GetMapping("/lector/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Lector lector = this.lectorService.listarId(id);

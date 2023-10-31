@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biblioteca.entities.Copia;
+import com.biblioteca.entities.EstadoCopia;
 import com.biblioteca.repositories.CopiaRepository;
 
 @Service
@@ -44,6 +45,15 @@ public class CopiaServiceImpl implements CopiaService {
 		if (u != null) {
 			repositorio.delete(u);
 		}
+	}
 
+	@Override
+	public List<Copia> listarDisponiblesByLibroId(long libroId) {
+		return repositorio.listarByLibroId(libroId, EstadoCopia.PRESTADO);
+	}
+
+	@Override
+	public List<Copia> listarByTituloLibro(String titulo) {
+		return repositorio.listarByTituloLibro(titulo);
 	}
 }

@@ -11,5 +11,6 @@ public interface PrestamoService {
 	Prestamo agregar(Prestamo u); // save del repo
 	Prestamo modificar(Prestamo u); // save del repo
 	void delete(long id); // delete(Prestamo); del repo
+	Prestamo prestarByLibroId(long isbn, long idLector);
 	
 }
