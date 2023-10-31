@@ -2,6 +2,9 @@ package com.biblioteca.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,10 +28,12 @@ public class Prestamo {
 	@Column
 	private LocalDate fin;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY) // lazy es carga demorada, Eager es carga temprana
 	@JoinColumn(name = "fk_lector")
 	private Lector lector;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY) // lazy es carga demorada, Eager es carga temprana
 	@JoinColumn(name = "fk_copia")
 	private Copia copia;
