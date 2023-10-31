@@ -40,7 +40,7 @@
 					<!--						<a onclick="return confirm('¿Está seguro de que quiere eliminar al lector?')" th:href="@{delete/{id}(id=${book.id})}">Eliminar</a>						-->
 					<!--					</td>-->
 					<td>
-						<a>Agregar copia</a>
+						<a th:href="@{/copia/add/{id}(id=${book.id})}">Agregar copia</a>
 					</td>
 				</tr>
 			</tbody>
