@@ -36,9 +36,6 @@
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 						</form>
 					</td>
-					<!--					<td>-->
-					<!--						<a onclick="return confirm('¿Está seguro de que quiere eliminar al lector?')" th:href="@{delete/{id}(id=${book.id})}">Eliminar</a>						-->
-					<!--					</td>-->
 					<td>
 						<a th:href="@{/copia/add/{id}(id=${book.id})}">Agregar copia</a>
 					</td>

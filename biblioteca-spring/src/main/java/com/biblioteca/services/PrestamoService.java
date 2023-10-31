@@ -2,6 +2,7 @@ package com.biblioteca.services;
 
 import java.util.List;
 
+import com.biblioteca.entities.Libro;
 import com.biblioteca.entities.Prestamo;
 
 public interface PrestamoService {
@@ -12,5 +13,6 @@ public interface PrestamoService {
 	Prestamo modificar(Prestamo u); // save del repo
 	void delete(long id); // delete(Prestamo); del repo
 	Prestamo prestarByLibroId(long isbn, long idLector);
+	List<Prestamo> listarPrestamosDeLector(long id);
 	
 }

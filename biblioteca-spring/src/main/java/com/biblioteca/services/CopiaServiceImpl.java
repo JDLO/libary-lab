@@ -49,7 +49,7 @@ public class CopiaServiceImpl implements CopiaService {
 
 	@Override
 	public List<Copia> listarDisponiblesByLibroId(long libroId) {
-		return repositorio.listarByLibroId(libroId, EstadoCopia.PRESTADO);
+		return repositorio.listarByLibroId(libroId, EstadoCopia.BIBLIOTECA);
 	}
 
 	@Override

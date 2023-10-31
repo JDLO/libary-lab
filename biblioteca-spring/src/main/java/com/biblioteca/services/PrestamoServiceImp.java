@@ -1,6 +1,7 @@
 package com.biblioteca.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.biblioteca.entities.Copia;
 import com.biblioteca.entities.EstadoCopia;
 import com.biblioteca.entities.Lector;
+import com.biblioteca.entities.Libro;
 import com.biblioteca.entities.Prestamo;
 import com.biblioteca.repositories.PrestamoRepository;
 
@@ -87,12 +89,31 @@ public class PrestamoServiceImp implements PrestamoService {
 			prestamo.setCopia(copiaAPrestar);
 			prestamo.setLector(lector);
 			this.agregar(prestamo);
-			
+
 //			// Agregar el préstamo al lector
 //		    lector.getPrestamos().add(prestamo);
 //		    
 //		    lectorService.agregar(lector);
 			return prestamo;
 		}
+	}
+
+	// TODO borrar
+//	@Override
+//	public List<Libro> listarLibrosDeLector(long idLector) {
+//		Lector lector = lectorService.listarId(idLector);
+//		if(lector == null) {
+//			return null;
+//		}
+//		List<Libro> librosDelLector = new ArrayList<Libro>();
+//		for (Prestamo prestamo : lector.getPrestamos()) {
+//			librosDelLector.add(prestamo.getCopia().getLibro());
+//		}
+//		return librosDelLector;
+//	}
+	
+	@Override
+	public List<Prestamo> listarPrestamosDeLector(long idLector) {
+		return repositorio.findByLectorId(idLector);
 	}
 }

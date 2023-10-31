@@ -56,4 +56,5 @@ public class LectorController {
 		redirAttrs.addFlashAttribute("lectorUpdated", true);
 		return "redirect:/lector/details/" + validatedLector.getnSocio();
 	}
+	
 }

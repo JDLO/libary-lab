@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class PrestamoController {
 
 	@GetMapping("/prestamo/solicitar")
 	public String getSolicitarCopia() {
-		return "copia/solicitar";
+		return "prestamo/solicitar";
 	}
 
 	@PostMapping("/prestamo/solicitar")
@@ -48,13 +49,23 @@ public class PrestamoController {
 			}
 
 		} catch (NumberFormatException e) {
+			//TODO falta hacer esto
 			// Si salta la excepcion, es un titulo
 //			prestamoRealizado = copiaService.listarByTituloLibro(isbnTitulo);
 		}
 
-		return "redirect:/lector/copias";
+		//TODO falta agregar mensajes de exito
+		return "redirect:/lector/prestamos";
+	}
+	
+	@GetMapping("/lector/prestamos")
+	public String getPrestamos(Model model) {
+		model.addAttribute("prestamosLector", prestamoService.listarPrestamosDeLector(getActiveUser().getId()));
+		return "prestamo/list";
 	}
 
+	//TODO preguntarle quién es el que devuelve el libro, si es el administrador o el lector
+	
 	/**
 	 * Devuelve el usuario con sesión iniciada en el sistema.
 	 * 
