@@ -2,6 +2,9 @@ package com.biblioteca.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,10 +39,12 @@ public class Libro {
 	private int anyo;
 
 	// relacion con copia
+	@JsonManagedReference
 	@OneToMany(mappedBy = "libro", targetEntity = Copia.class, cascade = CascadeType.ALL)
 	private List<Copia> ejemplares;
 
 	// relacion con autor
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY) // lazy es carga demorada, Eager es carga temprana
 	@JoinColumn(name = "fk_autor")
 	private Autor autor;

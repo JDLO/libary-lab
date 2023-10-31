@@ -3,6 +3,9 @@ package com.biblioteca.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +30,7 @@ public class Lector {
 	private String direccion;
 
 	// relacion con prestamo
+	@JsonManagedReference
 	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL)
 	private List<Prestamo> prestamos;
 
