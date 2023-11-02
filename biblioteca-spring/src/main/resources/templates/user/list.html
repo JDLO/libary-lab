@@ -28,12 +28,18 @@
 						<td th:text="${user.id}"></td>
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.role}"></td>
-						<td th:unless="${user.equals(activeUser)}"><a
-								th:href="${'/user/details/' + user.id}">Detalles</a></td>
+						<td th:unless="${user.equals(activeUser)}">
+							<div th:if="${user.role.equals('ADMIN')}">
+								<a th:href="${'/user/details/' + user.id}">Detalles</a>
+							</div>
+							<div th:if="${user.role.equals('LECTOR')}">
+								<a th:href="${'/lector/details/' + user.id}">Detalles</a>
+							</div>
+						</td>
 						<td th:unless="${user.equals(activeUser)}">
 							<form th:action="${'/user/delete/' + user.id}" method="post">
 								<input type="submit" class="button-danger-action" value="Eliminar"
-									onclick="return confirm('¿Está seguro de que quiere eliminar al usuario?')"/>
+									onclick="return confirm('¿Está seguro de que quiere eliminar al usuario?')" />
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							</form>
 						</td>
