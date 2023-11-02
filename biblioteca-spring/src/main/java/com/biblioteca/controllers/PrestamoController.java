@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,6 +24,25 @@ public class PrestamoController {
 	@Autowired
 	private UserService userService;
 
+	@GetMapping("/lector/prestamos")
+	public String getPrestamos(Model model) {
+		model.addAttribute("prestamosLector", prestamoService.listarPrestamosActualesLector(getActiveUser().getId()));
+		return "prestamo/list";
+	}
+	
+	@PostMapping("/prestamo/devolver/{id}")
+	public String setDevolverCopia(@PathVariable(name = "id") long idPrestamo, RedirectAttributes redAttrs) {
+		if(prestamoService.devolver(idPrestamo) == false) {
+			// Si la devolucion no ha sido posible
+			redAttrs.addFlashAttribute("errorDevolver", true);
+			return "redirect:/lector/prestamos";
+		}
+		
+		// Si la devolucion se realiza con exito
+		redAttrs.addFlashAttribute("prestamoDevuelto", true);
+		return "redirect:/lector/prestamos";
+	}
+	
 	@GetMapping("/prestamo/solicitar")
 	public String getSolicitarCopia(Model model) {
 		// Obtenemos al lector en sesión
@@ -68,15 +88,6 @@ public class PrestamoController {
 		redAttrs.addFlashAttribute("prestamoRealizado", true);
 		return "redirect:/lector/prestamos";
 	}
-
-	@GetMapping("/lector/prestamos")
-	public String getPrestamos(Model model) {
-		model.addAttribute("prestamosLector", prestamoService.listarPrestamosActualesLector(getActiveUser().getId()));
-		return "prestamo/list";
-	}
-
-	// TODO preguntarle quién es el que devuelve el libro, si es el administrador o
-	// el lector
 
 	/**
 	 * Devuelve el usuario con sesión iniciada en el sistema.

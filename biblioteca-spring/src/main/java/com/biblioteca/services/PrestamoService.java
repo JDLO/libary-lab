@@ -23,4 +23,6 @@ public interface PrestamoService {
 	List<Prestamo> listarPrestamosLector(long idLector);
 
 	List<Prestamo> listarPrestamosActualesLector(long idLector);
+
+	boolean devolver(Long idPrestamo);
 }

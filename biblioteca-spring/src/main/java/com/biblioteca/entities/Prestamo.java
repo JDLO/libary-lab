@@ -3,7 +3,6 @@ package com.biblioteca.entities;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
