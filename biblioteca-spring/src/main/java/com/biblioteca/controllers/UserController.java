@@ -73,6 +73,12 @@ public class UserController {
 		model.addAttribute("activeUser", getActiveUser());
 		return "user/list";
 	}
+	
+	@GetMapping("/user/listDisabled")
+	public String getDisabledUsers(Model model) {
+		model.addAttribute("users", userService.listarDisabled());
+		return "user/listDisabled";
+	}
 
 	@GetMapping("/user/details/{id}")
 	public String getUserDetails(@PathVariable Long id, Model model) {

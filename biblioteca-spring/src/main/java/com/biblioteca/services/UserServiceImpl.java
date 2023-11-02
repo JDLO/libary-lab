@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public List<User> listarDisabled() {
+		return repositorio.findAllDisabled();
+	}
+	
+	@Override
 	public User agregar(User user) {
 		if (user == null) {
 			throw new IllegalArgumentException("El usuario no puede ser null");
@@ -105,4 +110,6 @@ public class UserServiceImpl implements UserService {
 		userToDisable.setAccountLocked(true);
 		return repositorio.save(userToDisable);
 	}
+
+	
 }

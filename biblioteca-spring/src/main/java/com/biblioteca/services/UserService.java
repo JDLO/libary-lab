@@ -23,4 +23,6 @@ public interface UserService {
 	List<User> listarAdmins();
 
 	User disableUser(long id);
+
+	List<User> listarDisabled();
 }

@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query("SELECT u FROM User u WHERE u.accountLocked=false")
 	List<User> findAllEnabled();
 	
+	@Query("SELECT u FROM User u WHERE u.accountLocked=true")
+	List<User> findAllDisabled();
+	
 	User  findByEmail(String email);
 	
 	@Query("SELECT u FROM User u WHERE u.role='ADMIN' AND u.accountLocked=false")
@@ -27,4 +30,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query("SELECT u FROM User u WHERE u.role='ADMIN' AND u.accountLocked=true")
 	List<User> findDisabledAdmins();
+
+	
 }
