@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h2>Ver préstamos</h2>
+		<p>A continuación, se muestran sus libros prestados:</p>
+		<div th:if="${prestamosLector.isEmpty()}" class="alert alert-info" role="alert">No tiene libros prestados
+		</div>
+		<div class="alert alert-success" role="alert" th:if="${lectorDeleted}">Lector eliminado con éxito
+		</div>
+		<div th:unless="${prestamosLector.isEmpty()}" class="table-responsive">
+			<table class="table table-hover" id="tablePrestamosLector">
+				<thead>
+					<tr>
+						<th>ISBN</th>
+						<th>Título</th>
+						<th>Tipo</th>
+						<th>Editorial</th>
+						<th>Año</th>
+						<th>Fecha fin préstamo</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="prestamo : ${prestamosLector}">
+						<td th:text="${prestamo.copia.libro.id}"></td>
+						<td th:text="${prestamo.copia.libro.titulo}"></td>
+						<td th:text="${prestamo.copia.libro.tipoLibro}"></td>
+						<td th:text="${prestamo.copia.libro.editorial}"></td>
+						<td th:text="${prestamo.copia.libro.anyo}"></td>
+						<td th:text="${prestamo.getFechaExp()}"></td>
+
+						<td><a th:href="${'/libro/details/' + prestamo.copia.libro.id}">Detalles</a></td>
+						<td><a th:href="${'/libro/devolver/' + prestamo.copia.libro.id}">¿Devolver?</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<script>
+				$('#tablePrestamosLector').DataTable({
+					"columns": [
+						null, // Columna ID
+						null, // Columna Titulo
+						null, // Columna Tipo
+						null, // Columna Editorial
+						null, // Columna Anyo
+						null, // Columna Fecha fin prestamo
+						{"orderable": false, "searchable": false}, // Enlace
+						{"orderable": false, "searchable": false}, // Enlace
+					]
+				});
+			</script>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
+</html>

@@ -87,4 +87,8 @@ public class Prestamo {
 	public void setCopia(Copia copia) {
 		this.copia = copia;
 	}
+	
+	public LocalDate getFechaExp() {
+		return inicio.plusDays(30);
+	}
 }
