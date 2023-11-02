@@ -28,8 +28,14 @@
 						<td th:text="${user.id}"></td>
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.role}"></td>
-						<td th:unless="${user.equals(activeUser)}"><a
-								th:href="${'/user/details/' + user.id}">Detalles</a></td>
+						<td th:unless="${user.equals(activeUser)}">
+							<div th:if="${user.role.equals('ADMIN')}">
+								<a th:href="${'/user/details/' + user.id}">Detalles</a>
+							</div>
+							<div th:if="${user.role.equals('LECTOR')}">
+								<a th:href="${'/lector/details/' + user.id}">Detalles</a>
+							</div>
+						</td>
 						<td th:unless="${user.equals(activeUser)}">
 							<form th:action="${'/user/delete/' + user.id}" method="post">
 								<input type="submit" class="btn-link" value="Eliminar"
