@@ -1,5 +1,6 @@
 package com.biblioteca.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,8 @@ public class CopiaController {
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Copia copia=this.copiaService.listarId(id);
 		model.addAttribute("copie", copia);
-		model.addAttribute("estadoCopia", EstadoCopia.values());
+		EstadoCopia[] estadoCopia = {EstadoCopia.BIBLIOTECA, EstadoCopia.REPARACION};
+		model.addAttribute("estadoCopia", estadoCopia);
 		return "copia/update";
 	}
 	
