@@ -23,6 +23,11 @@ public class LectorServiceImpl implements LectorService {
 	public List<Lector> listar() {
 		return repositorio.findAll();
 	}
+	
+	@Override
+	public List<Lector> listarEnabled() {
+		return repositorio.findAllEnabled();
+	}
 
 	@Override
 	public Lector agregar(Lector u) {
@@ -52,4 +57,5 @@ public class LectorServiceImpl implements LectorService {
 		}
 
 	}
+
 }
