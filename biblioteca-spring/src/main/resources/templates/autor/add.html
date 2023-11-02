@@ -6,27 +6,34 @@
     <div class="container">
         <h1>Crear Autor</h1>
 		
-        <form action="#" th:action="@{/autor/save}" th:object="${author}" method="post">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
-                <input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" required>
+        <form class="form-horizontal" action="#" th:action="@{/autor/save}" th:object="${author}" method="post">
+            <div class="form-group">
+                <label for="nombre" class="control-label col-sm-2">Nombre:</label>
+                <div class="col-sm-10">
+                	<input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="nacionalidad" class="form-label">Nacionalidad:</label>
-                <input th:field="*{nacionalidad}" type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
+            <div class="form-group">
+                <label for="nacionalidad" class="control-label col-sm-2">Nacionalidad:</label>
+                <div class="col-sm-10">
+                	<input th:field="*{nacionalidad}" type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="fecha-nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                <input th:field="*{fechaNacimiento}" type="date" class="form-control" id="fecha-nacimiento" name="fecha-nacimiento" required>
+            <div class="form-group">
+                <label for="fecha-nacimiento" class="control-label col-sm-2">Fecha de Nacimiento:</label>
+               	<div class="col-sm-10">
+                	<input th:field="*{fechaNacimiento}" type="date" class="form-control" id="fecha-nacimiento" name="fecha-nacimiento" required>
+			   </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">Guardar Autor</button>
-        	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+		            <button type="submit" class="btn btn-primary">Guardar Autor</button>
+		        	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				</div>
+			</div>
         </form>
-        <hr>
-        <a class="btn btn-outline-secondary">Volver</a>
     </div>
     <footer th:replace="fragments/footer" />
 </body>

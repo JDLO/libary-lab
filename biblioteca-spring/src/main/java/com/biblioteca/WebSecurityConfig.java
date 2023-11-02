@@ -49,8 +49,10 @@ public class WebSecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(auth -> auth
+//		http.csrf(csrf -> csrf.disable()).authorizeRequests(auth -> auth
                 .requestMatchers("/css/**", "/img/**", "/script/**", "/login/**", "/failure-login/**")
                 .permitAll()
+//                );
 
 //                .requestMatchers("/user/list").hasAuthority("ADMIN")
 //                .requestMatchers("/autor/**").hasAuthority("ADMIN")
