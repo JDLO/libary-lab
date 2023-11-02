@@ -69,7 +69,7 @@ public class UserController {
 
 	@GetMapping("/user/list")
 	public String getUsers(Model model) {
-		model.addAttribute("users", userService.listar());
+		model.addAttribute("users", userService.listarEnabled());
 		model.addAttribute("activeUser", getActiveUser());
 		return "user/list";
 	}
@@ -99,18 +99,14 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
-	@PostMapping("/user/delete/{id}")
+	@PostMapping("/user/disable/{id}")
 	public String setDeleteUser(@PathVariable Long id, RedirectAttributes redAttrs) {
-		userService.delete(id);
-		redAttrs.addFlashAttribute("userDeleted", true);
+		if(userService.disableUser(id) == null) {
+			redAttrs.addFlashAttribute("errorDisabling", true);
+			return "redirect:/user/list";
+		}
+		redAttrs.addFlashAttribute("userDisabled", true);
 		return "redirect:/user/list";
-	}
-
-	@PostMapping("/lector/delete/{id}")
-	public String setDeleteLector(@PathVariable Long id, RedirectAttributes redAttrs) {
-		userService.delete(id);
-		redAttrs.addFlashAttribute("lectorDeleted", true);
-		return "redirect:/lector/list";
 	}
 
 	/**

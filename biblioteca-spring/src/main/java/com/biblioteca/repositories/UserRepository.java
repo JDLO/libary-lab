@@ -17,8 +17,14 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
 	List<User> findAll();
 	
+	@Query("SELECT u FROM User u WHERE u.accountLocked=false")
+	List<User> findAllEnabled();
+	
 	User  findByEmail(String email);
 	
-	@Query("SELECT u FROM User u WHERE u.role='ADMIN'")
-	List<User> findAdmins();
+	@Query("SELECT u FROM User u WHERE u.role='ADMIN' AND u.accountLocked=false")
+	List<User> findEnabledAdmins();
+	
+	@Query("SELECT u FROM User u WHERE u.role='ADMIN' AND u.accountLocked=true")
+	List<User> findDisabledAdmins();
 }

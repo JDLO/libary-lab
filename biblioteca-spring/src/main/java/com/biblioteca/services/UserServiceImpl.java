@@ -3,8 +3,8 @@ package com.biblioteca.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.biblioteca.entities.User;
 import com.biblioteca.repositories.UserRepository;
@@ -14,13 +14,16 @@ import com.biblioteca.util.Mapper;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Autowired
 	private UserRepository repositorio;
 
 	@Autowired
-	private PasswordEncoder encoder;
-
-	@Autowired
 	private LectorService lectorService;
+	
+	@Autowired
+	private PrestamoService prestamoService;
 
 	@Override
 	public User listarId(long id) {
@@ -32,6 +35,11 @@ public class UserServiceImpl implements UserService {
 		return repositorio.findAll();
 	}
 
+	@Override
+	public List<User> listarEnabled() {
+		return repositorio.findAllEnabled();
+	}
+	
 	@Override
 	public User agregar(User user) {
 		if (user == null) {
@@ -80,6 +88,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> listarAdmins() {
-		return repositorio.findAdmins();
+		return repositorio.findEnabledAdmins();
+	}
+
+	@Override
+	public User disableUser(long id) {
+		User userToDisable = repositorio.findById(id);
+
+		if (userToDisable.getRole().equals("LECTOR")) {
+			// Comprobar si el usuario tiene copias
+			if(prestamoService.listarPrestamosActualesLector(id).size() > 0) {
+				return null;
+			}
+		}
+		
+		userToDisable.setAccountLocked(true);
+		return repositorio.save(userToDisable);
 	}
 }
