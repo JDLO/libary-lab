@@ -19,5 +19,7 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long>{
 
 	@Query("SELECT p FROM Prestamo p WHERE p.lector.id=?1")
 	List<Prestamo> findByLectorId(long idLector);
-
+	
+	@Query("SELECT p FROM Prestamo p WHERE p.lector.id=?1 AND p.fin is null")
+	List<Prestamo> findActualesByLectorId(long idLector);
 }

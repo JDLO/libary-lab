@@ -29,7 +29,7 @@ public class PrestamoController {
 		Long idLectorEnSesion = getActiveUser().getId();
 
 		// Si el lector en sesion ya tiene 3 prestamos, mostrar error
-		if (prestamoService.listarPrestamosLector(idLectorEnSesion).size() == 3) {
+		if (prestamoService.listarPrestamosActualesLector(idLectorEnSesion).size() == 3) {
 			model.addAttribute("lectorConTresPrestamos", true);
 		}
 		return "prestamo/solicitar";
@@ -71,7 +71,7 @@ public class PrestamoController {
 
 	@GetMapping("/lector/prestamos")
 	public String getPrestamos(Model model) {
-		model.addAttribute("prestamosLector", prestamoService.listarPrestamosLector(getActiveUser().getId()));
+		model.addAttribute("prestamosLector", prestamoService.listarPrestamosActualesLector(getActiveUser().getId()));
 		return "prestamo/list";
 	}
 

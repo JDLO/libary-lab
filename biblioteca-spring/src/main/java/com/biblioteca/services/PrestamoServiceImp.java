@@ -126,8 +126,23 @@ public class PrestamoServiceImp implements PrestamoService {
 		return prestamo;
 	}
 
+	/**
+	 * Devuelve una lista con todos los prestamos que ha tenido el lector
+	 *
+	 * @param idLector El ID del lector.
+	 */
 	@Override
 	public List<Prestamo> listarPrestamosLector(long idLector) {
 		return repositorio.findByLectorId(idLector);
+	}
+
+	/**
+	 * Devuelve una lista con todos los prestamos que ha tenido el lector
+	 *
+	 * @param idLector El ID del lector.
+	 */
+	@Override
+	public List<Prestamo> listarPrestamosActualesLector(long idLector) {
+		return repositorio.findActualesByLectorId(idLector);
 	}
 }
