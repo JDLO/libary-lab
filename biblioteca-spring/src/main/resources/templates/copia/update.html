@@ -20,10 +20,13 @@
 				</div>
 			</div>
             
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </form>
-        <hr>
-        <a class="btn btn-outline-secondary">Volver</a>
     </div>
     <footer th:replace="fragments/footer" />
 </body>
