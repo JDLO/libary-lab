@@ -4,7 +4,7 @@
 <body>
 	<nav th:replace="fragments/nav" />
     <div class="container">
-        <h1>Actualizar Autor</h1>
+        <h2>Actualizar Autor</h2>
 		
         <form class="form-horizontal" action="#" th:action="@{/autor/save}" th:object="${author}" method="post">
 			<input type="hidden" th:field="*{id}">

@@ -4,9 +4,9 @@
 <body>
 	<nav th:replace="fragments/nav" />
     <div class="container">
-        <h1>Crear Autor</h1>
+        <h2>Agregar Autor</h2>
 		
-        <form class="form-horizontal" action="#" th:action="@{/autor/save}" th:object="${author}" method="post">
+        <form class="form-horizontal" action="#" th:action="@{/autor/add}" th:object="${author}" method="post">
             <div class="form-group">
                 <label for="nombre" class="control-label col-sm-2">Nombre:</label>
                 <div class="col-sm-10">

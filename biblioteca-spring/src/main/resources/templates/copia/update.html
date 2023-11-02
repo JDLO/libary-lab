@@ -4,7 +4,7 @@
 <body>
 	<nav th:replace="fragments/nav" />
     <div class="container">
-        <h1>Actualizar Copia</h1>
+        <h2>Actualizar Copia</h2>
 		
         <form class="form-horizontal" th:action="@{/copia/update}" th:object="${copie}" method="post">
 			<input type="hidden" th:field="*{id}">

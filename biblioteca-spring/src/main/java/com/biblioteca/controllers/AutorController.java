@@ -26,7 +26,7 @@ public class AutorController {
 		return "autor/list";
 	}
 
-	@PostMapping("/autor/save")
+	@PostMapping("/autor/add")
 	public String saveAutor(@ModelAttribute("author") Autor autor) {
 		autorService.agregar(autor);
 		return "redirect:/autor/list";

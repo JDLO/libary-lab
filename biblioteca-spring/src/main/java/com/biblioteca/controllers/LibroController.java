@@ -30,7 +30,7 @@ public class LibroController {
 		return "libro/list";
 	}
 	
-	@PostMapping("/libro/save/{id}")
+	@PostMapping("/libro/add/{id}")
 	public String savelibro(@PathVariable("id") Long idAutor,@ModelAttribute("book") Libro libro) {
 		libro.setAutor(autorService.listarId(idAutor));
 		libroService.agregar(libro);
