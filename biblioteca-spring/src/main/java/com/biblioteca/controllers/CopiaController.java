@@ -37,7 +37,7 @@ public class CopiaController {
 	@PostMapping("/copia/update")
 	public String savecopia(@ModelAttribute("copie") Copia copia) {
 		copiaService.agregar(copia);
-		return "redirect:/libro/list";
+		return "redirect:/copia/list";
 	}
 	
 	@PostMapping("/copia/add/{id}")
@@ -53,7 +53,7 @@ public class CopiaController {
 			copia.setEstado(estadoLibro);
 			copiaService.agregar(copia);	
 		}
-		return "redirect:/libro/list";
+		return "redirect:/copia/list";
 	}
 	
 	@PostMapping("/copia/delete/{id}")
