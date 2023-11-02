@@ -10,7 +10,7 @@
 		<p>A continuación, se muestran sus libros prestados:</p>
 		<div th:if="${prestamosLector.isEmpty()}" class="alert alert-info" role="alert">No tiene libros prestados
 		</div>
-		<div class="alert alert-success" role="alert" th:if="${lectorDeleted}">Lector eliminado con éxito
+		<div class="alert alert-success" role="alert" th:if="${prestamoRealizado}">Préstamo realizado con éxito
 		</div>
 		<div th:unless="${prestamosLector.isEmpty()}" class="table-responsive">
 			<table class="table table-hover" id="tablePrestamosLector">

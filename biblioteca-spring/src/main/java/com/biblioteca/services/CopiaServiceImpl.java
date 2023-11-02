@@ -48,12 +48,12 @@ public class CopiaServiceImpl implements CopiaService {
 	}
 
 	@Override
-	public List<Copia> listarDisponiblesByLibroId(long libroId) {
+	public List<Copia> listarDisponiblesByIdLibro(long libroId) {
 		return repositorio.listarByLibroId(libroId, EstadoCopia.BIBLIOTECA);
 	}
 
 	@Override
-	public List<Copia> listarByTituloLibro(String titulo) {
-		return repositorio.listarByTituloLibro(titulo);
+	public List<Copia> listarDisponiblesByTituloLibro(String titulo) {
+		return repositorio.listarByTituloId(titulo, EstadoCopia.BIBLIOTECA);
 	}
 }
