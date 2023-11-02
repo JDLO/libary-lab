@@ -15,6 +15,7 @@
 					<th>Titulo</th>
 					<th>Estado</th>
 					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,6 +23,16 @@
 					<td th:text="${copie.id}"></td>
 					<td th:text="${copie.libro.titulo}"></td>
 					<td th:text="${copie.estado}"></td>
+					<td>
+						<span th:if="${copie.estado.name() == 'BIBLIOTECA' 
+										or copie.estado.name() == 'REPARACION' }">
+							<a th:href="@{update/{id}(id=${copie.id})}">Actualizar</a>
+						</span>
+						<span th:unless="${copie.estado.name() == 'BIBLIOTECA' 
+											or copie.estado.name() == 'REPARACION'}">
+							&nbsp;
+						</span>
+					</td>
 					<td>
 						<form th:action="${'/copia/delete/' + copie.id}" method="post">
 							<input type="submit" class="btn-link" value="Eliminar"
@@ -38,6 +49,7 @@
 					null, // Columna id
 					null, // Columna Titulo 
 					null, // Columna Estado
+					{"orderable": false, "searchable": false}, // Acciones
 					{"orderable": false, "searchable": false}, // Acciones
 				],
 			});

@@ -11,6 +11,7 @@
 		<table id="tableBooks" class="table table-striped table-responsive-md">
 			<thead>
 				<tr>
+					<th>ISBN</th>
 					<th>Titulo</th>
 					<th>Tipo</th>
 					<th>Editorial</th>
@@ -22,6 +23,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="book: ${listBooks}">
+					<td th:text="${book.id}"></td>
 					<td th:text="${book.titulo}"></td>
 					<td th:text="${book.tipoLibro}"></td>
 					<td th:text="${book.editorial}"></td>
@@ -45,6 +47,7 @@
 		<script>
 			$('#tableBooks').DataTable({
 				"columns": [
+					null, // Columna Id o ISBN
 					null, // Columna Titulo
 					null, // Columna Tipo 
 					null, // Columna Editorial
