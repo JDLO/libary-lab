@@ -7,7 +7,6 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h1>Autores</h1>
-		<a th:href="@{autor/add}" class="btn btn-primary btn-sm mb-3">Agregar autor</a>
 		<table id="tableAuthors" class="table table-striped table-responsive-md">
 			<thead>
 				<tr>
@@ -38,7 +37,7 @@
 <!--						<a th:href="@{delete/{id}(id=${author.id})}">Eliminar</a>						-->
 <!--					</td>-->
 					<td>
-						<a th:href="@{/libro/add/{id}(id=${author.id})}">Agreagar libro</a>						
+						<a th:href="@{/libro/add/{id}(id=${author.id})}">Agregar libro</a>						
 					</td>
 				</tr>
 			</tbody>

@@ -35,7 +35,7 @@
 						<td><a th:href="${'/lector/update/' + lector.nSocio}">Actualizar</a></td>
 						<td>
 							<form th:action="${'/lector/delete/' + lector.nSocio}" method="post">
-								<input type="submit" class="button-danger-action" value="Eliminar"
+								<input type="submit" class="btn-link" value="Eliminar"
 									onclick="return confirm('¿Está seguro de que quiere eliminar al lector?')" />
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							</form>
