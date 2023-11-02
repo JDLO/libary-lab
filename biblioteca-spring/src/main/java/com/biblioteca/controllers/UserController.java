@@ -92,6 +92,7 @@ public class UserController {
 			RedirectAttributes redirAttrs) {
 		addUserFormValidator.validate(userValidated, result);
 		if (result.hasErrors()) {
+			model.addAttribute("rolesList", rolesService.getRoles());
 			return "user/add";
 		}
 		userService.agregar(userValidated);
