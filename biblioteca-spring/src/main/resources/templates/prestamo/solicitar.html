@@ -7,7 +7,8 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2>Solicitud de préstamo</h2>
-		<form class="form-horizontal" method="post" action="/prestamo/solicitar" th:unless="${lectorConTresPrestamos}">
+		<form class="form-horizontal" method="post" action="/prestamo/solicitar"
+			th:unless="${lectorConTresPrestamos} OR ${lectorConMulta}">
 			<div class="form-group">
 				<label for="isbn" class="control-label col-sm-2">ISBN o título</label>
 				<div class="col-sm-10">
@@ -26,6 +27,9 @@
 		</div>
 		<div th:if="${lectorConTresPrestamos}" class="alert alert-info" role="alert">No puede solicitar un préstamo ya
 			que ya tiene 3 libros prestados
+		</div>
+		<div th:if="${lectorConMulta}" class="alert alert-info" role="alert">No puede solicitar un préstamo ya
+			que actualmente tiene multas
 		</div>
 	</div>
 	<footer th:replace="fragments/footer" />

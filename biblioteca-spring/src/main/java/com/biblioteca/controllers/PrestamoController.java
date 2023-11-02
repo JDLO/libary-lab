@@ -1,5 +1,7 @@
 package com.biblioteca.controllers;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.biblioteca.entities.Multa;
 import com.biblioteca.entities.Prestamo;
 import com.biblioteca.entities.User;
+import com.biblioteca.services.LectorService;
 import com.biblioteca.services.PrestamoService;
 import com.biblioteca.services.UserService;
 
@@ -24,25 +28,28 @@ public class PrestamoController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private LectorService lectorService;
+
 	@GetMapping("/lector/prestamos")
 	public String getPrestamos(Model model) {
 		model.addAttribute("prestamosLector", prestamoService.listarPrestamosActualesLector(getActiveUser().getId()));
 		return "prestamo/list";
 	}
-	
+
 	@PostMapping("/prestamo/devolver/{id}")
 	public String setDevolverCopia(@PathVariable(name = "id") long idPrestamo, RedirectAttributes redAttrs) {
-		if(prestamoService.devolver(idPrestamo) == false) {
+		if (prestamoService.devolver(idPrestamo) == false) {
 			// Si la devolucion no ha sido posible
 			redAttrs.addFlashAttribute("errorDevolver", true);
 			return "redirect:/lector/prestamos";
 		}
-		
+
 		// Si la devolucion se realiza con exito
 		redAttrs.addFlashAttribute("prestamoDevuelto", true);
 		return "redirect:/lector/prestamos";
 	}
-	
+
 	@GetMapping("/prestamo/solicitar")
 	public String getSolicitarCopia(Model model) {
 		// Obtenemos al lector en sesión
@@ -51,6 +58,12 @@ public class PrestamoController {
 		// Si el lector en sesion ya tiene 3 prestamos, mostrar error
 		if (prestamoService.listarPrestamosActualesLector(idLectorEnSesion).size() == 3) {
 			model.addAttribute("lectorConTresPrestamos", true);
+		}
+		
+		// Si el lector tiene una multa actual, mostrar error
+		Multa multa = lectorService.listarId(idLectorEnSesion).getMulta();
+		if (multa != null && multa.getfFin().isAfter(LocalDate.now())) {
+			model.addAttribute("lectorConMulta", true);
 		}
 		return "prestamo/solicitar";
 	}
