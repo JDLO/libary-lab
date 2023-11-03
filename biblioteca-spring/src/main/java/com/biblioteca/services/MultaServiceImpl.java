@@ -24,6 +24,9 @@ public class MultaServiceImpl implements MultaService {
 
 	@Autowired
 	private MultaRepository repositorio;
+	
+	@Autowired
+	private LectorService lectorService;
 
 	@Override
 	public Multa listarId(long id) {
@@ -69,16 +72,30 @@ public class MultaServiceImpl implements MultaService {
 		LocalDate fechaEntregaEsperada = fechaInicio.plus(30, ChronoUnit.DAYS);
 
 		// se calcula la los dias de mora y la fecha en la cual la multa termina
-		int diasMora = Period.between(fechaEntregaEsperada, fechaActual).getDays();
-		int diasMulta = diasMora * 2;
+		
+		// Primero, calcula los días de mora
+		long diasMora = ChronoUnit.DAYS.between(fechaEntregaEsperada, fechaActual);
+		
+		// Luego, calcula los días de multa (en este caso, multiplicados por 2)
+		long diasMulta = diasMora * 2;
+		
+		// Añade los días de multa a la fecha actual para obtener la fecha en la que termina la multa
 		LocalDate fechaMultaFin = fechaActual.plus(diasMulta, ChronoUnit.DAYS);
+		
+//		int diasMora = Period.between(fechaEntregaEsperada, fechaActual).getDays();
+//		int diasMulta = diasMora * 2;
+//		LocalDate fechaMultaFin = fechaActual.plus(diasMulta, ChronoUnit.DAYS);
 
 		Multa multa = new Multa();
 		multa.setfInicio(fechaActual);
 		multa.setfFin(fechaMultaFin);
-		multa.setLector(lectorMoroso);
+//		multa.setLector(lectorMoroso);
+		
+		lectorMoroso.setMulta(multa);
+		
 		try {
-			this.agregar(multa);
+//			this.agregar(multa);
+			lectorService.agregar(lectorMoroso);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

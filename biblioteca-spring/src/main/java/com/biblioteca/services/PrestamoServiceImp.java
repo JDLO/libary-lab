@@ -104,12 +104,12 @@ public class PrestamoServiceImp implements PrestamoService {
 	 */
 	private Prestamo asignarCopiaALector(Lector lector, List<Copia> copiasDisponibles) {
 		// Si el lector tiene mas de 3 prestamos, no se le puede dar otro prestamo
-		if (lector.getPrestamos().size() > 3) {
+		if (repositorio.findActualesByLectorId(lector.getnSocio()).size() > 3) {
 			return null;
 		}
 
+		// Si no existen copias de ese libro, devolver nulo
 		if (copiasDisponibles.isEmpty()) {
-			// Si no existen copias de ese libro, devolver nulo
 			return null;
 		}
 
@@ -146,7 +146,7 @@ public class PrestamoServiceImp implements PrestamoService {
 	public List<Prestamo> listarPrestamosActualesLector(long idLector) {
 		return repositorio.findActualesByLectorId(idLector);
 	}
-	
+
 	@Override
 	public boolean devolver(Long idPrestamo) {
 		Optional<Prestamo> optPrestamo = repositorio.findById(idPrestamo);
@@ -154,13 +154,13 @@ public class PrestamoServiceImp implements PrestamoService {
 		if (!optPrestamo.isPresent()) {
 			return false;
 		}
-		
-		// Establece siempre la misam fecha y hora 
+
+		// Establece siempre la misam fecha y hora
 		LocalDate fechaActual = LocalDate.now();
 
 		// Si el prestamo existe
 		Prestamo prestamo = optPrestamo.get();
-		
+
 		// Establece si el prestamo tiene o no una multa
 		prestamo = seValidaSiHayMulta(prestamo, fechaActual);
 
@@ -180,21 +180,21 @@ public class PrestamoServiceImp implements PrestamoService {
 	public List<Prestamo> listarPrestamosMorosos(LocalDate fechaActual) {
 		return repositorio.findAllPrestamoMoroso(fechaActual);
 	}
-	
-	public Prestamo seValidaSiHayMulta(Prestamo prestamo,LocalDate fechaActual) {
+
+	public Prestamo seValidaSiHayMulta(Prestamo prestamo, LocalDate fechaActual) {
 		List<Prestamo> listPrestamosMorosos = this.listarPrestamosMorosos(fechaActual);
 		if (listPrestamosMorosos.contains(prestamo)) {
 			// Se crea siempre una multa nueva siendo siempre la mas actual
-			multaIsCreated(prestamo, fechaActual);			
-		}else {
-			if(prestamo.getLector().getMulta() != null) {
+			multaIsCreated(prestamo, fechaActual);
+		} else {
+			if (prestamo.getLector().getMulta() != null) {
 				// Se cambia a null la multa si el lector no es moroso con su ultima entrega
 				prestamo.getLector().setMulta(null);
 			}
 		}
 		return prestamo;
 	}
-	
+
 	public boolean multaIsCreated(Prestamo prestamo, LocalDate fechaActual) {
 		return this.multaService.actualizarMultasSistema(prestamo, fechaActual);
 	}
