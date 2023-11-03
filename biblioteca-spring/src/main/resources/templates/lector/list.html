@@ -22,7 +22,6 @@
 						<th>Dirección</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,13 +32,6 @@
 						<td th:text="${lector.direccion}"></td>
 						<td><a th:href="${'/lector/details/' + lector.nSocio}">Detalles</a></td>
 						<td><a th:href="${'/lector/update/' + lector.nSocio}">Actualizar</a></td>
-						<td>
-							<form th:action="${'/lector/delete/' + lector.nSocio}" method="post">
-								<input type="submit" class="btn-link" value="Eliminar"
-									onclick="return confirm('¿Está seguro de que quiere eliminar al lector?')" />
-								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-							</form>
-						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -50,7 +42,6 @@
 						null, // Columna Nombre
 						null, // Columna Telefono
 						null, // Columna Direccion
-						{"orderable": false, "searchable": false}, // Enlace
 						{"orderable": false, "searchable": false}, // Enlace
 						{"orderable": false, "searchable": false}, // Enlace
 					]

@@ -2,6 +2,7 @@ package com.biblioteca.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -126,8 +127,46 @@ public class PrestamoServiceImp implements PrestamoService {
 		return prestamo;
 	}
 
+	/**
+	 * Devuelve una lista con todos los prestamos que ha tenido el lector
+	 *
+	 * @param idLector El ID del lector.
+	 */
 	@Override
 	public List<Prestamo> listarPrestamosLector(long idLector) {
 		return repositorio.findByLectorId(idLector);
+	}
+
+	/**
+	 * Devuelve una lista con todos los prestamos que ha tenido el lector
+	 *
+	 * @param idLector El ID del lector.
+	 */
+	@Override
+	public List<Prestamo> listarPrestamosActualesLector(long idLector) {
+		return repositorio.findActualesByLectorId(idLector);
+	}
+
+	@Override
+	public boolean devolver(Long idPrestamo) {
+		Optional<Prestamo> optPrestamo = repositorio.findById(idPrestamo);
+		// Si el prestamo no existe, devolver false
+		if (!optPrestamo.isPresent()) {
+			return false;
+		}
+
+		// Si el prestamo existe
+		Prestamo prestamo = optPrestamo.get();
+
+		// Establezco la fecha de devolucion a la actual
+		prestamo.setFin(LocalDate.now());
+
+		// Actualizo el estado de la copia a BIBLIOTECA
+		prestamo.getCopia().setEstado(EstadoCopia.BIBLIOTECA);
+
+		// Guardo los cambios en la base de datos
+		this.agregar(prestamo);
+
+		return true;
 	}
 }

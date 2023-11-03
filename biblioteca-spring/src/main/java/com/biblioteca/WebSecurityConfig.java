@@ -54,26 +54,27 @@ public class WebSecurityConfig {
                 .permitAll()
 //                );
 
-//                .requestMatchers("/user/list").hasAuthority("ADMIN")
-//                .requestMatchers("/autor/**").hasAuthority("ADMIN")
-//                .requestMatchers("/libro/add/*").hasAuthority("ADMIN")
+                .requestMatchers("/libro/list").hasAnyAuthority("ADMIN", "LECTOR")
+                .requestMatchers("/autor/list").hasAnyAuthority("ADMIN", "LECTOR")
+                .requestMatchers("/autor/details").hasAnyAuthority("ADMIN", "LECTOR")
                 
-//                .requestMatchers("/report/download/*").hasAuthority("ADMIN").requestMatchers("/report/downloadBetweenDates")
-//                .hasAuthority("ADMIN").requestMatchers("/tutor/downloadActiveTutors").hasAuthority("ADMIN")
-//                .requestMatchers("/tutor/details/*").hasAnyAuthority("ADMIN")
-//
-//                .requestMatchers("/student/details/*").hasAnyAuthority("ADMIN", "TUTOR").requestMatchers("/report/details/*")
-//                .hasAnyAuthority("ADMIN", "TUTOR")
-//
-//                .requestMatchers("/tutorial/details/*").hasAuthority("ESTUDIANTE")
-//
-//                .requestMatchers("/system/**").hasAuthority("ADMIN").requestMatchers("/user/**").hasAuthority("ADMIN")
-//                .requestMatchers("/tutorialGroups/**").hasAuthority("ADMIN").requestMatchers("/admin/**").hasAuthority("ADMIN")
-//                .requestMatchers("/tutor/**").hasAuthority("TUTOR").requestMatchers("/tutorial/**").hasAuthority("TUTOR")
-//                .requestMatchers("/report/**").hasAuthority("TUTOR").requestMatchers("/student/**").hasAuthority("ESTUDIANTE")
-//
-//                .requestMatchers("/changePasswordUserInSession").authenticated()
-
+                .requestMatchers("/prestamo/devolver").hasAuthority("LECTOR")
+                .requestMatchers("/prestamo/solicitar").hasAuthority("LECTOR")
+                .requestMatchers("/lector/prestamos").hasAuthority("LECTOR")
+                .requestMatchers("/lector/multas").hasAuthority("LECTOR")
+                
+                .requestMatchers("/lector/list").hasAuthority("ADMIN")
+                .requestMatchers("/lector/update/**").hasAuthority("ADMIN")
+                .requestMatchers("/lector/details/**").hasAuthority("ADMIN")
+                .requestMatchers("/autor/add").hasAuthority("ADMIN")
+                .requestMatchers("/autor/update/**").hasAuthority("ADMIN")
+                .requestMatchers("/user/**").hasAuthority("ADMIN")
+                .requestMatchers("/libro/add/**").hasAuthority("ADMIN")
+                .requestMatchers("/libro/update/**").hasAuthority("ADMIN")
+                .requestMatchers("/copia/list").hasAuthority("ADMIN")
+                .requestMatchers("/copia/update/**").hasAuthority("ADMIN")
+                .requestMatchers("/copia/add/**").hasAuthority("ADMIN")
+                
                 .anyRequest().authenticated()).formLogin(login -> login.loginPage("/login").permitAll()
                 .defaultSuccessUrl("/home").failureUrl("/failure-login")).logout(logout -> logout.logoutSuccessUrl("/login")
                 .permitAll());

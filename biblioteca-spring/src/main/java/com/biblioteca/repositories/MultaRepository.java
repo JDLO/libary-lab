@@ -15,5 +15,4 @@ public interface MultaRepository extends JpaRepository<Multa, Long> {
 	void delete(Multa u);
 
 	List<Multa> findAll();
-
 }

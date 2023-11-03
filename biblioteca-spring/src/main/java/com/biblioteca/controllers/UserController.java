@@ -69,9 +69,15 @@ public class UserController {
 
 	@GetMapping("/user/list")
 	public String getUsers(Model model) {
-		model.addAttribute("users", userService.listar());
+		model.addAttribute("users", userService.listarEnabled());
 		model.addAttribute("activeUser", getActiveUser());
 		return "user/list";
+	}
+	
+	@GetMapping("/user/listDisabled")
+	public String getDisabledUsers(Model model) {
+		model.addAttribute("users", userService.listarDisabled());
+		return "user/listDisabled";
 	}
 
 	@GetMapping("/user/details/{id}")
@@ -92,6 +98,7 @@ public class UserController {
 			RedirectAttributes redirAttrs) {
 		addUserFormValidator.validate(userValidated, result);
 		if (result.hasErrors()) {
+			model.addAttribute("rolesList", rolesService.getRoles());
 			return "user/add";
 		}
 		userService.agregar(userValidated);
@@ -99,18 +106,24 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
-	@PostMapping("/user/delete/{id}")
-	public String setDeleteUser(@PathVariable Long id, RedirectAttributes redAttrs) {
-		userService.delete(id);
-		redAttrs.addFlashAttribute("userDeleted", true);
+	@PostMapping("/user/disable/{id}")
+	public String setDisableUser(@PathVariable Long id, RedirectAttributes redAttrs) {
+		if(userService.disableUser(id) == null) {
+			redAttrs.addFlashAttribute("errorDisabling", true);
+			return "redirect:/user/list";
+		}
+		redAttrs.addFlashAttribute("userDisabled", true);
 		return "redirect:/user/list";
 	}
-
-	@PostMapping("/lector/delete/{id}")
-	public String setDeleteLector(@PathVariable Long id, RedirectAttributes redAttrs) {
-		userService.delete(id);
-		redAttrs.addFlashAttribute("lectorDeleted", true);
-		return "redirect:/lector/list";
+	
+	@PostMapping("/user/enable/{id}")
+	public String setEnableUser(@PathVariable Long id, RedirectAttributes redAttrs) {
+		if(userService.enableUser(id) == null) {
+			redAttrs.addFlashAttribute("errorEnabling", true);
+			return "redirect:/user/list";
+		}
+		redAttrs.addFlashAttribute("userEnabled", true);
+		return "redirect:/user/listDisabled";
 	}
 
 	/**

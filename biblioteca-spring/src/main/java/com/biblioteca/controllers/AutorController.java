@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entities.Autor;
 import com.biblioteca.services.AutorService;
 
 @Controller
 public class AutorController {
-		
+
 	@Autowired
 	private AutorService autorService;
-	
+
 	@GetMapping("/autor/list")
 	public String viewHomePageAutor(Model model) {
 		List<Autor> listAutors = autorService.listar();
@@ -26,15 +27,10 @@ public class AutorController {
 		return "autor/list";
 	}
 
-	@PostMapping("/autor/save")
-	public String saveAutor(@ModelAttribute("author") Autor autor) {
+	@PostMapping("/autor/add")
+	public String saveAutor(@ModelAttribute("author") Autor autor, RedirectAttributes redAttrs) {
 		autorService.agregar(autor);
-		return "redirect:/autor/list";
-	}
-
-	@PostMapping("/autor/delete/{id}")
-	public String deleteAutor(@PathVariable("id") long id) {
-		this.autorService.delete(id);
+		redAttrs.addFlashAttribute("autorGuardado", true);
 		return "redirect:/autor/list";
 	}
 
@@ -46,10 +42,15 @@ public class AutorController {
 	}
 
 	@GetMapping("/autor/add")
-	public String showNewCrusoForm(Model model) {
+	public String showNewAutorForm(Model model) {
 		Autor autor = new Autor();
 		model.addAttribute("author", autor);
 		return "autor/add";
 	}
 
+	@GetMapping("/autor/details/{id}")
+	public String showDetailsAutor(@PathVariable("id") long id, Model model) {
+		model.addAttribute("autor", autorService.listarId(id));
+		return "autor/details";
+	}
 }

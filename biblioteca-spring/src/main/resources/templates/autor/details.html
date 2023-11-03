@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2>Detalles de autor</h2>
+		<div class="panel panel-default">
+			<div class="panel-heading">Nombre</div>
+			<div class="panel-body" th:text="${autor.nombre}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Nacionalidad</div>
+			<div class="panel-body" th:text="${autor.nacionalidad}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Fecha de nacimiento</div>
+			<div class="panel-body" th:text="${autor.fechaNacimiento}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Obras</div>
+			<div class="panel-body" th:if="${autor.obras.size() == 0}">Aún no tiene obras</div>
+			<div class="panel-body" th:unless="${autor.obras.size() == 0}">
+				<div class="table-responsive">
+					<table class="table table-hover" id="tableObrasTutor">
+						<thead>
+							<tr>
+								<th>ISBN</th>
+								<th>Título</th>
+								<th>Tipo</th>
+								<th>Editorial</th>
+								<th class="col-md-1"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="libro : ${autor.obras}">
+								<td th:text="${libro.id}"></td>
+								<td th:text="${libro.titulo}"></td>
+								<td th:text="${libro.tipoLibro}"></td>
+								<td th:text="${libro.editorial}"></td>
+								<td><a th:href="${'/libro/details/' + libro.id}">Detalles</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
+</html>

@@ -6,9 +6,9 @@
 <body>
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h1>Actualizar Libro</h1>
+		<h2>Agregar Libro</h2>
 
-		<form  class="form-horizontal" th:action="${'/libro/save/' + idAutor}" th:object="${book}" method="post">
+		<form  class="form-horizontal" th:action="${'/libro/add/' + idAutor}" th:object="${book}" method="post">
 			<div class="form-group">
 				<label for="titulo" class="control-label col-sm-2">Título:</label>
 				<div class="col-sm-10">

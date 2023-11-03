@@ -23,6 +23,9 @@ public class User {
 	@Column
 	private String role;
 
+	@Column
+	private boolean accountLocked;
+
 	public User() {
 	}
 
@@ -64,4 +67,11 @@ public class User {
 		this.role = role;
 	}
 
+	public boolean isAccountLocked() {
+		return accountLocked;
+	}
+
+	public void setAccountLocked(boolean accountLocked) {
+		this.accountLocked = accountLocked;
+	}
 }

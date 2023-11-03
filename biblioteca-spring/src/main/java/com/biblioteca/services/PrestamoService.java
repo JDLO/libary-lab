@@ -20,5 +20,9 @@ public interface PrestamoService {
 
 	Prestamo prestarByTituloLibro(String isbnTitulo, long idLector);
 
-	List<Prestamo> listarPrestamosLector(long id);
+	List<Prestamo> listarPrestamosLector(long idLector);
+
+	List<Prestamo> listarPrestamosActualesLector(long idLector);
+
+	boolean devolver(Long idPrestamo);
 }

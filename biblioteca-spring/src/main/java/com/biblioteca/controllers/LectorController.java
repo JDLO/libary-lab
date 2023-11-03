@@ -25,7 +25,7 @@ public class LectorController {
 	
 	@GetMapping("/lector/list")
 	public String getLectores(Model model) {
-		model.addAttribute("lectores", lectorService.listar());
+		model.addAttribute("lectores", lectorService.listarEnabled());
 		return "lector/list";
 	}
 
