@@ -13,7 +13,7 @@
 					<th>Nombre</th>
 					<th>Nacionalidad</th>
 					<th>Fecha nacimiento</th>
-					<th class="col-md-1"></th>
+					<!-- Para que funcione el DataTables (la tabla tiene que tener siempre las mismas columnas)-->
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
 				</tr>
@@ -23,22 +23,15 @@
 					<td th:text="${author.nombre}"></td>
 					<td th:text="${author.nacionalidad}"></td>
 					<td th:text="${author.fechaNacimiento}"></td>
-					<td>
+					<td sec:authorize="hasAuthority('ADMIN')">
 						<a th:href="@{update/{id}(id=${author.id})}">Actualizar</a>
 					</td>
-					<td>
-						<form th:action="${'/autor/delete/' + author.id}" method="post">
-							<input type="submit" class="btn-link" value="Eliminar"
-								onclick="return confirm('¿Está seguro de que quiere eliminar al autor?')" />
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-						</form>
 					</td>
-<!--					<td>-->
-<!--						<a th:href="@{delete/{id}(id=${author.id})}">Eliminar</a>						-->
-<!--					</td>-->
-					<td>
-						<a th:href="@{/libro/add/{id}(id=${author.id})}">Agregar libro</a>						
+					<td sec:authorize="hasAuthority('ADMIN')">
+						<a th:href="@{/libro/add/{id}(id=${author.id})}">Agregar libro</a>
 					</td>
+					<td sec:authorize="hasAuthority('LECTOR')"></td>
+					<td sec:authorize="hasAuthority('LECTOR')"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -48,7 +41,6 @@
 					null, // Columna Nombre
 					null, // Columna Nacionalidad 
 					null, // Columna Fecha Nacimiento
-					{"orderable": false, "searchable": false}, // Acciones
 					{"orderable": false, "searchable": false}, // Acciones
 					{"orderable": false, "searchable": false}, // Acciones
 				],
