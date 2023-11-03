@@ -30,13 +30,26 @@ public class LibroController {
 		return "libro/list";
 	}
 
+<<<<<<< Updated upstream
 	@PostMapping("/libro/add/{id}")
+=======
+	@PostMapping("/libro/save/{id}")
+>>>>>>> Stashed changes
 	public String savelibro(@PathVariable("id") Long idAutor, @ModelAttribute("book") Libro libro) {
 		libro.setAutor(autorService.listarId(idAutor));
 		libroService.agregar(libro);
 		return "redirect:/libro/list";
 	}
 
+<<<<<<< Updated upstream
+=======
+	@PostMapping("/libro/delete/{id}")
+	public String deletelibro(@PathVariable("id") long id) {
+		this.libroService.delete(id);
+		return "redirect:/libro/list";
+	}
+
+>>>>>>> Stashed changes
 	@GetMapping("/libro/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Libro libro = this.libroService.listarId(id);
@@ -53,10 +66,13 @@ public class LibroController {
 		model.addAttribute("listTiposLibros", TipoLibro.values());
 		return "libro/add";
 	}
+<<<<<<< Updated upstream
 	
 	@GetMapping("/libro/details/{id}")
 	public String getLibroDetails(@PathVariable Long id, Model model) {
 		model.addAttribute("libro", libroService.listarId(id));
 		return "libro/details";
 	}
+=======
+>>>>>>> Stashed changes
 }

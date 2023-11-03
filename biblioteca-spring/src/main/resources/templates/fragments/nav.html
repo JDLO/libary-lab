@@ -37,6 +37,17 @@
 						<li><a href="/copia/list">Ver copias</a></li>
 					</ul>
 				</li>
+				<!-- ADMIN -->
+				<li id="user-management-menu" class="dropdown" sec:authorize="hasAuthority('ADMIN')">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+					<span>Gestión de multas</span> 
+					<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="/multa/sysupdatep">Actualizar multas</a></li>
+						<li><a href="/multa/list">Ver multas</a></li>
+					</ul>
+				</li>
 
 				<!-- LECTOR -->
 				<li id="user-management-menu" class="dropdown" sec:authorize="hasAuthority('LECTOR')">

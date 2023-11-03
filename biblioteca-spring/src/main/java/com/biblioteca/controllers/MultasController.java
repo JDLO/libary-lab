@@ -34,8 +34,8 @@ public class MultasController {
 
 	@PostMapping("/multa/sysupdatep")
 	public String updateSysMulta(Model model) {
-		boolean retorno = this.multaService.actualizarMultasSistema();
-		model.addAttribute("Save", retorno);
+//		boolean retorno = this.multaService.actualizarMultasSistema();
+//		model.addAttribute("Save", retorno);
 		return "redirect:/multa/list";
 	}
 

@@ -36,6 +36,7 @@
 						<td th:text="${prestamo.copia.libro.anyo}"></td>
 						<td th:text="${prestamo.getFechaExp()}"></td>
 
+<<<<<<< Updated upstream
 						<td>
 							<form th:action="${'/prestamo/devolver/' + prestamo.id}" method="post">
 								<input type="submit" class="btn-link" value="Devolver"
@@ -43,6 +44,10 @@
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							</form>
 						</td>
+=======
+						<td><a th:href="${'/libro/details/' + prestamo.copia.libro.id}">Detalles</a></td>
+						<td><a th:href="${'/lector/devolver/' + prestamo.id}">¿Devolver?</a></td>
+>>>>>>> Stashed changes
 					</tr>
 				</tbody>
 			</table>

@@ -7,6 +7,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< Updated upstream
+=======
+import org.springframework.web.bind.annotation.ModelAttribute;
+>>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -110,5 +114,17 @@ public class PrestamoController {
 	private User getActiveUser() {
 		return userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
-
+	
+	@GetMapping("/lector/devolver/{id}")
+	public String getDevolverCopia(@PathVariable("id") Long idPrestamo, Model model) {
+		Prestamo prestamo = this.prestamoService.listarId(idPrestamo);
+		model.addAttribute("loan", prestamo);
+		return "prestamo/devolver";
+	}
+	
+	@PostMapping("/lector/devolver")
+	public String setPrestamo(@ModelAttribute("loan") Prestamo prestamo) {
+		this.prestamoService.devolverLibroByPrestamo(prestamo);
+		return "redirect:/lector/prestamos";
+	}
 }

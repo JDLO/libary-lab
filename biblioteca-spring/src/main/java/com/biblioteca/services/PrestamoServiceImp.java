@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,9 @@ public class PrestamoServiceImp implements PrestamoService {
 
 	@Autowired
 	private LectorService lectorService;
+
+	@Autowired
+	private MultaService multaService;
 
 	@Override
 	public Prestamo listarId(long id) {
@@ -127,11 +132,6 @@ public class PrestamoServiceImp implements PrestamoService {
 		return prestamo;
 	}
 
-	/**
-	 * Devuelve una lista con todos los prestamos que ha tenido el lector
-	 *
-	 * @param idLector El ID del lector.
-	 */
 	@Override
 	public List<Prestamo> listarPrestamosLector(long idLector) {
 		return repositorio.findByLectorId(idLector);
@@ -168,5 +168,65 @@ public class PrestamoServiceImp implements PrestamoService {
 		this.agregar(prestamo);
 
 		return true;
+	}
+
+	@Override
+	public List<Prestamo> listarPrestamosMorosos(LocalDate fechaActual) {
+		return repositorio.findAllPrestamoMoroso(fechaActual);
+	}
+
+	@Override
+	public Prestamo devolverLibroByPrestamo(Prestamo prestamo) {
+		LocalDate fechaActual = LocalDate.now();
+		seValidaSiHayMulta(prestamo, fechaActual);
+		prestamo.setFin(fechaActual);
+		prestamo.getCopia().setEstado(EstadoCopia.BIBLIOTECA);
+		
+		return this.agregar(prestamo);
+	}
+	
+	public void seValidaSiHayMulta(Prestamo prestamo,LocalDate fechaActual) {
+		List<Prestamo> listPrestamosMorosos = this.listarPrestamosMorosos(fechaActual);
+		if (listPrestamosMorosos.contains(prestamo)) {
+			multaIsCreated(prestamo, fechaActual);			
+		}else {
+			if(prestamo.getLector().getMulta() != null) {
+				prestamo.getLector().setMulta(null);
+			}
+		}
+	}
+	
+	public boolean multaIsCreated(Prestamo prestamo, LocalDate fechaActual) {
+		return this.multaService.actualizarMultasSistema(prestamo, fechaActual);
+	}
+
+	@Override
+	public List<Prestamo> listarPrestamosMorosos(LocalDate fechaActual) {
+		return repositorio.findAllPrestamoMoroso(fechaActual);
+	}
+
+	@Override
+	public Prestamo devolverLibroByPrestamo(Prestamo prestamo) {
+		LocalDate fechaActual = LocalDate.now();
+		seValidaSiHayMulta(prestamo, fechaActual);
+		prestamo.setFin(fechaActual);
+		prestamo.getCopia().setEstado(EstadoCopia.BIBLIOTECA);
+		
+		return this.agregar(prestamo);
+	}
+	
+	public void seValidaSiHayMulta(Prestamo prestamo,LocalDate fechaActual) {
+		List<Prestamo> listPrestamosMorosos = this.listarPrestamosMorosos(fechaActual);
+		if (listPrestamosMorosos.contains(prestamo)) {
+			multaIsCreated(prestamo, fechaActual);			
+		}else {
+			if(prestamo.getLector().getMulta() != null) {
+				prestamo.getLector().setMulta(null);
+			}
+		}
+	}
+	
+	public boolean multaIsCreated(Prestamo prestamo, LocalDate fechaActual) {
+		return this.multaService.actualizarMultasSistema(prestamo, fechaActual);
 	}
 }
