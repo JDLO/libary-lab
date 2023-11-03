@@ -27,12 +27,14 @@
 					<td th:text="${book.tipoLibro}"></td>
 					<td th:text="${book.editorial}"></td>
 					<td th:text="${book.anyo}"></td>
-					<td>
+					<td sec:authorize="hasAuthority('ADMIN')">
 						<a th:href="@{update/{id}(id=${book.id})}">Actualizar</a>
 					</td>
-					<td>
+					<td sec:authorize="hasAuthority('ADMIN')">
 						<a th:href="@{/copia/add/{id}(id=${book.id})}">Agregar copia</a>
 					</td>
+					<td sec:authorize="hasAuthority('LECTOR')"></td>
+					<td sec:authorize="hasAuthority('LECTOR')"></td>
 				</tr>
 			</tbody>
 		</table>

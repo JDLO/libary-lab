@@ -15,10 +15,10 @@ import com.biblioteca.services.AutorService;
 
 @Controller
 public class AutorController {
-		
+
 	@Autowired
 	private AutorService autorService;
-	
+
 	@GetMapping("/autor/list")
 	public String viewHomePageAutor(Model model) {
 		List<Autor> listAutors = autorService.listar();
@@ -40,10 +40,15 @@ public class AutorController {
 	}
 
 	@GetMapping("/autor/add")
-	public String showNewCrusoForm(Model model) {
+	public String showNewAutorForm(Model model) {
 		Autor autor = new Autor();
 		model.addAttribute("author", autor);
 		return "autor/add";
 	}
 
+	@GetMapping("/autor/details/{id}")
+	public String showDetailsAutor(@PathVariable("id") long id, Model model) {
+		model.addAttribute("autor", autorService.listarId(id));
+		return "autor/details";
+	}
 }
