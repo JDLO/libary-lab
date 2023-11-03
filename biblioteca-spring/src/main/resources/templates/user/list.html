@@ -40,7 +40,7 @@
 						</td>
 						<td th:unless="${user.equals(activeUser)}">
 							<form th:action="${'/user/disable/' + user.id}" method="post">
-								<input type="submit" class="btn-link" value="Activar"
+								<input type="submit" class="btn-link" value="Desactivar"
 									onclick="return confirm('¿Está seguro de que quiere desactivar al usuario?')" />
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							</form>

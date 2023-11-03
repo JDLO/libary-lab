@@ -25,4 +25,6 @@ public interface UserService {
 	User disableUser(long id);
 
 	List<User> listarDisabled();
+
+	Object enableUser(long id);
 }

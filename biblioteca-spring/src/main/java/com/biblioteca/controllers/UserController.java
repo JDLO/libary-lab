@@ -107,13 +107,23 @@ public class UserController {
 	}
 
 	@PostMapping("/user/disable/{id}")
-	public String setDeleteUser(@PathVariable Long id, RedirectAttributes redAttrs) {
+	public String setDisableUser(@PathVariable Long id, RedirectAttributes redAttrs) {
 		if(userService.disableUser(id) == null) {
 			redAttrs.addFlashAttribute("errorDisabling", true);
 			return "redirect:/user/list";
 		}
 		redAttrs.addFlashAttribute("userDisabled", true);
 		return "redirect:/user/list";
+	}
+	
+	@PostMapping("/user/enable/{id}")
+	public String setEnableUser(@PathVariable Long id, RedirectAttributes redAttrs) {
+		if(userService.enableUser(id) == null) {
+			redAttrs.addFlashAttribute("errorEnabling", true);
+			return "redirect:/user/list";
+		}
+		redAttrs.addFlashAttribute("userEnabled", true);
+		return "redirect:/user/listDisabled";
 	}
 
 	/**

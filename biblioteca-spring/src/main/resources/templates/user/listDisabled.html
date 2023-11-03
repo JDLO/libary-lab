@@ -7,11 +7,11 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2>Ver usuarios desactivados</h2>
-		<div class="alert alert-danger" role="alert" th:if="${errorDisabling}">No se puede desactivar un usuario con
-			préstamos activos</div>
-		<div class="alert alert-success" role="alert" th:if="${userEnabled}">Usuario desactivado con éxito</div>
+		<div class="alert alert-danger" role="alert" th:if="${errorEnabling}">No se puede activar al usuario</div>
+		<div class="alert alert-success" role="alert" th:if="${userEnabled}">Usuario activado con éxito</div>
 		<p>A continuación, se muestran los usuarios desactivados del sistema:</p>
-		<div th:if="${users.isEmpty()}" class="alert alert-info" role="alert">No existen usuarios desactivados en el sistema
+		<div th:if="${users.isEmpty()}" class="alert alert-info" role="alert">No existen usuarios desactivados en el
+			sistema
 		</div>
 		<div th:unless="${users.isEmpty()}" class="table-responsive">
 			<table class="table table-hover" id="tableUsers">

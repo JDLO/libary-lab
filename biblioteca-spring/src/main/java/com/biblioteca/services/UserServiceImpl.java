@@ -15,13 +15,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	@Autowired
 	private UserRepository repositorio;
 
 	@Autowired
 	private LectorService lectorService;
-	
+
 	@Autowired
 	private PrestamoService prestamoService;
 
@@ -39,12 +39,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> listarEnabled() {
 		return repositorio.findAllEnabled();
 	}
-	
+
 	@Override
 	public List<User> listarDisabled() {
 		return repositorio.findAllDisabled();
 	}
-	
+
 	@Override
 	public User agregar(User user) {
 		if (user == null) {
@@ -102,14 +102,21 @@ public class UserServiceImpl implements UserService {
 
 		if (userToDisable.getRole().equals("LECTOR")) {
 			// Comprobar si el usuario tiene copias
-			if(prestamoService.listarPrestamosActualesLector(id).size() > 0) {
+			if (prestamoService.listarPrestamosActualesLector(id).size() > 0) {
 				return null;
 			}
 		}
-		
+
 		userToDisable.setAccountLocked(true);
 		return repositorio.save(userToDisable);
 	}
 
-	
+	@Override
+	public Object enableUser(long id) {
+		User userToEnable = repositorio.findById(id);
+
+		userToEnable.setAccountLocked(false);
+		return repositorio.save(userToEnable);
+	}
+
 }
