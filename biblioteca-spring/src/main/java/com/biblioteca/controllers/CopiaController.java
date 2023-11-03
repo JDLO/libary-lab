@@ -1,6 +1,5 @@
 package com.biblioteca.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class CopiaController {
 	@PostMapping("/copia/update")
 	public String savecopia(@ModelAttribute("copie") Copia copia) {
 		copiaService.agregar(copia);
-		return "redirect:/libro/list";
+		return "redirect:/copia/list";
 	}
 	
 	@PostMapping("/copia/add/{id}")
@@ -56,12 +55,6 @@ public class CopiaController {
 		return "redirect:/libro/list";
 	}
 	
-	@PostMapping("/copia/delete/{id}")
-	public String deletelibro(@PathVariable("id") long id) {
-		// TODO Se debe agregar validacion para eliminar solo las copias sin asignar
-		this.copiaService.delete(id);
-		return "redirect:/copia/list";
-	}
 	 // TODO: falta por resover dudas con el ESTADO COPIAS
 	@GetMapping("/copia/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {

@@ -37,12 +37,6 @@ public class LibroController {
 		return "redirect:/libro/list";
 	}
 	
-	@PostMapping("/libro/delete/{id}")
-	public String deletelibro(@PathVariable("id") long id) {
-		this.libroService.delete(id);
-		return "redirect:/libro/list";
-	}
-	
 	@GetMapping("/libro/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Libro libro=this.libroService.listarId(id);

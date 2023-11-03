@@ -15,7 +15,6 @@
 					<th>Titulo</th>
 					<th>Estado</th>
 					<th class="col-md-1"></th>
-					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,13 +32,6 @@
 							&nbsp;
 						</span>
 					</td>
-					<td>
-						<form th:action="${'/copia/delete/' + copie.id}" method="post">
-							<input type="submit" class="btn-link" value="Eliminar"
-								onclick="return confirm('¿Está seguro de que quiere eliminar el libro?')" />
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-						</form>
-					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -49,7 +41,6 @@
 					null, // Columna id
 					null, // Columna Titulo 
 					null, // Columna Estado
-					{"orderable": false, "searchable": false}, // Acciones
 					{"orderable": false, "searchable": false}, // Acciones
 				],
 			});

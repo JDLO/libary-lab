@@ -25,7 +25,6 @@
 						<th>Año</th>
 						<th>Fecha fin préstamo</th>
 						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,7 +36,6 @@
 						<td th:text="${prestamo.copia.libro.anyo}"></td>
 						<td th:text="${prestamo.getFechaExp()}"></td>
 
-						<td><a th:href="${'/libro/details/' + prestamo.copia.libro.id}">Detalles</a></td>
 						<td>
 							<form th:action="${'/prestamo/devolver/' + prestamo.id}" method="post">
 								<input type="submit" class="btn-link" value="Devolver"
@@ -57,7 +55,6 @@
 						null, // Columna Editorial
 						null, // Columna Anyo
 						null, // Columna Fecha fin prestamo
-						{"orderable": false, "searchable": false}, // Enlace
 						{"orderable": false, "searchable": false}, // Enlace
 					]
 				});

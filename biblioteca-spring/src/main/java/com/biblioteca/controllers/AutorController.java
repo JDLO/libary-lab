@@ -32,12 +32,6 @@ public class AutorController {
 		return "redirect:/autor/list";
 	}
 
-	@PostMapping("/autor/delete/{id}")
-	public String deleteAutor(@PathVariable("id") long id) {
-		this.autorService.delete(id);
-		return "redirect:/autor/list";
-	}
-
 	@GetMapping("/autor/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
 		Autor autor = this.autorService.listarId(id);

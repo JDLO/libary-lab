@@ -59,7 +59,7 @@ public class PrestamoController {
 		if (prestamoService.listarPrestamosActualesLector(idLectorEnSesion).size() == 3) {
 			model.addAttribute("lectorConTresPrestamos", true);
 		}
-		
+
 		// Si el lector tiene una multa actual, mostrar error
 		Multa multa = lectorService.listarId(idLectorEnSesion).getMulta();
 		if (multa != null && multa.getfFin().isAfter(LocalDate.now())) {
@@ -101,7 +101,7 @@ public class PrestamoController {
 		redAttrs.addFlashAttribute("prestamoRealizado", true);
 		return "redirect:/lector/prestamos";
 	}
-
+	
 	/**
 	 * Devuelve el usuario con sesión iniciada en el sistema.
 	 * 

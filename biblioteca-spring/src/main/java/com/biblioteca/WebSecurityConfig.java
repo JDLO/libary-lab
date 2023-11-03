@@ -73,6 +73,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/libro/update/**").hasAuthority("ADMIN")
                 .requestMatchers("/copia/list").hasAuthority("ADMIN")
                 .requestMatchers("/copia/update/**").hasAuthority("ADMIN")
+                .requestMatchers("/copia/add/**").hasAuthority("ADMIN")
                 
                 .anyRequest().authenticated()).formLogin(login -> login.loginPage("/login").permitAll()
                 .defaultSuccessUrl("/home").failureUrl("/failure-login")).logout(logout -> logout.logoutSuccessUrl("/login")
