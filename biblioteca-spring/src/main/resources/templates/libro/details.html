@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2>Detalles de libro</h2>
+		<div class="panel panel-default">
+			<div class="panel-heading">ISBN</div>
+			<div class="panel-body" th:text="${libro.id}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Título</div>
+			<div class="panel-body" th:text="${libro.titulo}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Tipo</div>
+			<div class="panel-body" th:text="${libro.tipoLibro}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Editorial</div>
+			<div class="panel-body" th:text="${libro.editorial}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Año</div>
+			<div class="panel-body" th:text="${libro.anyo}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Autor</div>
+			<div class="panel-body" th:text="${libro.autor.nombre}"></div>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
+</html>

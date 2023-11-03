@@ -18,6 +18,7 @@
 					<th>Año</th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,6 +36,7 @@
 					</td>
 					<td sec:authorize="hasAuthority('LECTOR')"></td>
 					<td sec:authorize="hasAuthority('LECTOR')"></td>
+					<td><a th:href="${'/libro/details/' + book.id}">Detalles</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -46,6 +48,7 @@
 					null, // Columna Tipo 
 					null, // Columna Editorial
 					null, // Columna Año
+					{"orderable": false, "searchable": false}, // Acciones
 					{"orderable": false, "searchable": false}, // Acciones
 					{"orderable": false, "searchable": false}, // Acciones
 				],

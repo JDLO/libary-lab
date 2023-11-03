@@ -17,40 +17,46 @@ import com.biblioteca.services.LibroService;
 
 @Controller
 public class LibroController {
-	
+
 	@Autowired
 	private LibroService libroService;
 	@Autowired
 	private AutorService autorService;
-	
+
 	@GetMapping("/libro/list")
 	public String viewHomePagelibro(Model model) {
 		List<Libro> listlibros = libroService.listar();
 		model.addAttribute("listBooks", listlibros);
 		return "libro/list";
 	}
-	
+
 	@PostMapping("/libro/add/{id}")
-	public String savelibro(@PathVariable("id") Long idAutor,@ModelAttribute("book") Libro libro) {
+	public String savelibro(@PathVariable("id") Long idAutor, @ModelAttribute("book") Libro libro) {
 		libro.setAutor(autorService.listarId(idAutor));
 		libroService.agregar(libro);
 		return "redirect:/libro/list";
 	}
-	
+
 	@GetMapping("/libro/update/{id}")
 	public String showFormUpdate(@PathVariable("id") long id, Model model) {
-		Libro libro=this.libroService.listarId(id);
+		Libro libro = this.libroService.listarId(id);
 		model.addAttribute("book", libro);
 		model.addAttribute("listTiposLibros", TipoLibro.values());
 		return "libro/update";
 	}
-	
+
 	@GetMapping("/libro/add/{id}")
-	public String showNewCrusoForm(@PathVariable("id")Long idAutor, Model model) {
+	public String showNewCrusoForm(@PathVariable("id") Long idAutor, Model model) {
 		Libro libro = new Libro();
 		model.addAttribute("book", libro);
 		model.addAttribute("idAutor", idAutor);
 		model.addAttribute("listTiposLibros", TipoLibro.values());
 		return "libro/add";
-	}	
+	}
+	
+	@GetMapping("/libro/details/{id}")
+	public String getLibroDetails(@PathVariable Long id, Model model) {
+		model.addAttribute("libro", libroService.listarId(id));
+		return "libro/details";
+	}
 }
