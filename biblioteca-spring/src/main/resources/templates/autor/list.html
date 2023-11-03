@@ -28,7 +28,6 @@
 					<td th:text="${author.nombre}"></td>
 					<td th:text="${author.nacionalidad}"></td>
 					<td th:text="${author.fechaNacimiento}"></td>
-					<td><a th:href="${'/autor/details/' + author.id}">Detalles</a></td>
 					<td sec:authorize="hasAuthority('ADMIN')">
 						<a th:href="@{update/{id}(id=${author.id})}">Actualizar</a>
 					</td>
@@ -38,6 +37,7 @@
 					</td>
 					<td sec:authorize="hasAuthority('LECTOR')"></td>
 					<td sec:authorize="hasAuthority('LECTOR')"></td>
+					<td><a th:href="${'/autor/details/' + author.id}">Detalles</a></td>
 				</tr>
 			</tbody>
 		</table>
