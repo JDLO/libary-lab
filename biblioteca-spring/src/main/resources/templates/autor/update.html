@@ -6,7 +6,7 @@
     <div class="container">
         <h2>Actualizar Autor</h2>
 		
-        <form class="form-horizontal" action="#" th:action="@{/autor/save}" th:object="${author}" method="post">
+        <form class="form-horizontal" action="#" th:action="@{/autor/add}" th:object="${author}" method="post">
 			<input type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label for="nombre" class="control-label col-sm-2">Nombre:</label>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entities.Autor;
 import com.biblioteca.services.AutorService;
@@ -27,8 +28,9 @@ public class AutorController {
 	}
 
 	@PostMapping("/autor/add")
-	public String saveAutor(@ModelAttribute("author") Autor autor) {
+	public String saveAutor(@ModelAttribute("author") Autor autor, RedirectAttributes redAttrs) {
 		autorService.agregar(autor);
+		redAttrs.addFlashAttribute("autorGuardado", true);
 		return "redirect:/autor/list";
 	}
 

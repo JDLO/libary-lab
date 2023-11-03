@@ -7,7 +7,11 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2>Autores</h2>
-		<table id="tableAuthors" class="table table-striped table-responsive-md">
+		<div class="alert alert-success" role="alert" th:if="${autorGuardado}">Autor guardado con éxito</div>
+		<p>A continuación, se muestran los autores del sistema:</p>
+		<div th:if="${listAuthors.isEmpty()}" class="alert alert-info" role="alert">No existen autores en el sistema
+		</div>
+		<table id="tableAuthors" class="table table-striped table-responsive-md" th:unless="${listAuthors.isEmpty()}">
 			<thead>
 				<tr>
 					<th>Nombre</th>
