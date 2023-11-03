@@ -1,0 +1,7 @@
+account_locked,id,email,password,role
+0,1,manolito@gmail.com,$2a$10$DZ3UxWBxlHkR7bAqoUKSV.M9ZbL6/YKyDWASLpztw0dcF1ah2F/9q,ADMIN
+0,2,willyrex@gmail.com,$2a$10$BhrVoewf2mS/dtpl/g9wB.V75LtkBM3CX4yEp2/l9odzLvcQR6WM.,LECTOR
+0,3,azabache@gmail.com,$2a$10$aXXjsagREIvcbsg6gUbxXOPKd4u9Oiwm2MWNedjcknFW8v6emlURy,LECTOR
+0,8,hola@gmail.com,$2a$10$Ou5Hu/N8MisPPqf5rQw0v.TUGru5TaWzF7oL4Ek5UT3r3bvxW1ygi,ADMIN
+0,9,luis.fernandez-suarez@capgemini.com,$2a$10$kE7xZZXyOQv.aMoqsuLyzesPPLYPsYEjYYjudhWlZRtvAx7nciQeG,LECTOR
+0,10,nuevoadmin@gmail.com,$2a$10$VElA6u1ATj9qu9ykPdA8l.p3mzOBiiTa8o32PXXwsSjyN65pI8dIe,ADMIN
