@@ -1,18 +1,16 @@
 package com.biblioteca.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import com.biblioteca.BibliotecaSpringApplication;
+import com.biblioteca.entities.User;
 import com.biblioteca.repositories.AutorRepository;
 import com.biblioteca.repositories.CopiaRepository;
 import com.biblioteca.repositories.LectorRepository;
@@ -20,9 +18,9 @@ import com.biblioteca.repositories.LibroRepository;
 import com.biblioteca.repositories.MultaRepository;
 import com.biblioteca.repositories.PrestamoRepository;
 import com.biblioteca.repositories.UserRepository;
+import com.biblioteca.services.LectorService;
+import com.biblioteca.services.UserService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = BibliotecaSpringApplication.class)
 public class UnitTests {
 
 	@Autowired
@@ -45,6 +43,12 @@ public class UnitTests {
 	
 	@Autowired
 	private PrestamoRepository prestamoRepository;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private LectorService lectorService;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -70,20 +74,60 @@ public class UnitTests {
 	 */
 	private void initDb() {
 		// Borramos todo lo utilizado para las pruebas
-		multaRepository.deleteAll();
-		prestamoRepository.deleteAll();
-//		lectorRepository.deleteAll();
-//		copiaRepository.deleteAll();
-//		libroRepository.deleteAll();
-//		autorRepository.deleteAll();
-//		userRepository.deleteAll();
+		User user1 = new User();
+		user1.setEmail("admin1@gmail.com");
+		user1.setPassword("12345");
+		user1.setRole("ADMIN");
+		userService.agregar(user1);
+		
+		User user2 = new User();
+		user2.setEmail("admin2@gmail.com");
+		user2.setPassword("12345");
+		user2.setRole("ADMIN");
+		userService.agregar(user2);
+		
+		User user3 = new User();
+		user3.setEmail("admin3@gmail.com");
+		user3.setPassword("12345");
+		user3.setRole("ADMIN");
+		userService.agregar(user3);
 
 		// Creamos los elementos de los tests para la base de datos:
 		// TODO hacerlo
 	}
 	
+	/**
+	 * Probamos que el metodo agregar agrega a un usuario y un lector con el mismo ID.
+	 */
 	@Test
-	public void test1() {
-		fail();
+	public void testAgregar() {
+		User newUser = new User();
+		newUser.setEmail("newUser@gmail.com");
+		newUser.setPassword("12345");
+		newUser.setRole("ADMIN");
+		
+		User userAdded = userService.agregar(newUser);
+		assertEquals(newUser.getEmail(), userAdded.getEmail());
+		assertEquals(newUser.getRole(), userAdded.getRole());
 	}
+	
+	/**
+	 * Probamos que el metodo agregar agrega a un usuario y un lector con el mismo ID.
+	 */
+	@Test
+	public void testEliminar() {
+		User newUser = new User();
+		newUser.setEmail("newUserToDelete@gmail.com");
+		newUser.setPassword("12345");
+		newUser.setRole("ADMIN");
+		userService.agregar(newUser);
+		
+		long id = newUser.getId();
+		
+		userService.delete(newUser.getId());
+		
+		assertNull(userService.listarId(id));
+	}
+	
+	
 }

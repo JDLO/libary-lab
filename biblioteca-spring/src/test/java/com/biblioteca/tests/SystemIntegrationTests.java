@@ -6,7 +6,6 @@ import static org.junit.Assert.fail;
 import java.time.Duration;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -165,5 +164,4 @@ public class SystemIntegrationTests {
 		list = driver.findElements(By.xpath("//*[contains(text(),'nuevoadmin@gmail.com')]"));
 		assertTrue("Text not found!", list.size() > 0);
 	}
-
 }
