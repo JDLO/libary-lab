@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head" />
+
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h2>Devolucion del libro</h2>
+		<p>
+			Al accionar el siguiente boton realizará la devolución del libro.
+		</p>
+		<form method="post" action="/lector/devolver" th:object="${loan}">
+			<input type="hidden" th:field="*{id}">
+			<input type="hidden" th:field="*{inicio}">
+			<input type="hidden" th:field="*{fin}">
+			<input type="hidden" th:field="*{lector}">
+			<input type="hidden" th:field="*{copia}">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary">Devolver</button>
+				</div>
+			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		</form>		
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+
+</html>

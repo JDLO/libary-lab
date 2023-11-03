@@ -15,15 +15,17 @@ public interface PrestamoService {
 
 	Prestamo modificar(Prestamo u); // save del repo
 
-	void delete(long id); // delete(Prestamo); del repo
+	void delete(long id); // delete(Prestamo); del repo 
 
 	Prestamo prestarByIdLibro(long isbn, long idLector);
 
 	Prestamo prestarByTituloLibro(String isbnTitulo, long idLector);
+	
+	List<Prestamo> listarPrestamosLector(long idLector);
 
-	List<Prestamo> listarPrestamosLector(long id);
+	List<Prestamo> listarPrestamosActualesLector(long idLector);
+
+	boolean devolver(Long idPrestamo);
 	
 	List<Prestamo> listarPrestamosMorosos(LocalDate fechaActual);
-	
-	Prestamo devolverLibroByPrestamo(Prestamo prestamo);
 }
